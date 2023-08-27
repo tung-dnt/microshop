@@ -1,0 +1,18 @@
+{
+  "name": "@shared/utils",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "main": "./dist/utils/index.js",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "publishConfig": {
+    "access": "public",
+    "linkDirectory": true
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}

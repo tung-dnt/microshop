@@ -1,0 +1,20 @@
+{
+  "name": "@shared/types",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "types": "index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "publishConfig": {
+    "access": "public",
+    "linkDirectory": true
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@shared/prisma": "workspace:*"
+  }
+}

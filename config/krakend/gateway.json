@@ -1,0 +1,10 @@
+{
+  "$schema": "https://www.krakend.io/schema/v3.json",
+  "name": "Microshop Gateway",
+  "version": 3,
+  "port": 8080,
+  "timeout": "3000ms",
+  "cache_ttl": "300s",
+  "disable_rest": true,
+  "endpoints": []
+}
