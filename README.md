@@ -34,7 +34,7 @@ chmod -R 744 scripts
 pnpm init:dev
 ```
 4. Access application at:
-- [Web UI](http://localhost)
+- [Web UI](http://localhost:5173)
 - [Server health check](http://localhost/api/ping)
 
 ## To start project

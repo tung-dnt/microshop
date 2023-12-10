@@ -38,7 +38,8 @@ module.exports = {
     "react-refresh"
   ],
   "rules": {
-    "react-refresh/only-export-components": "warn",
+    "consistent-return": 0,
+    "react-refresh/only-export-components": 0,
     // ts eslint
     "@typescript-eslint/consistent-type-assertions": [
       "error",
@@ -102,8 +103,6 @@ module.exports = {
     "object-curly-spacing": "off",
     "@typescript-eslint/object-curly-spacing": "error",
     "@typescript-eslint/quotes": "off",
-    "semi": "off",
-    "@typescript-eslint/semi": "error",
     "space-before-blocks": "off",
     "@typescript-eslint/space-before-blocks": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
@@ -312,6 +311,7 @@ module.exports = {
     "react/require-default-props": "off",
     "react-hooks/exhaustive-deps": "warn",
     "semi-spacing": ["error", { "before": false, "after": true }],
+    "semi": ['error', 'never'],
     "simple-import-sort/imports": [
       "error",
       {
