@@ -1,3 +1,4 @@
+import { HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
 
@@ -8,9 +9,11 @@ import './App.css'
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <HelmetProvider>
+      <ChakraProvider theme={theme}>
+        <RouterProvider router={router} />
+      </ChakraProvider>
+    </HelmetProvider>
   )
 }
 

@@ -3,14 +3,26 @@ import { signal } from '@preact/signals-react'
 import type { Notification } from '@/models/system'
 
 class Notifier {
-  private notification = signal<Notification | null>(null)
+  private notifications = signal<Notification[]>([])
 
   get() {
-    return this.notification.value
+    return this.notifications.value
   }
 
-  set(setting: Notification | null) {
-    this.notification.value = setting
+  set(notifications: Notification[]) {
+    this.notifications.value = notifications
+  }
+
+  push(notification: Notification) {
+    const notifications = this.notifications.value
+
+    this.notifications.value = [...notifications, notification]
+  }
+
+  pop(index: number) {
+    const notifications = this.notifications.value
+
+    this.notifications.value = notifications.splice(index, 1)
   }
 }
 

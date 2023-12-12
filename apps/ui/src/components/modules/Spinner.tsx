@@ -3,7 +3,7 @@ import { Spinner as ChakraSpinner } from '@chakra-ui/react'
 import { LoadingSignal } from '@/signals/common'
 
 export function Spinner() {
-  if (!LoadingSignal.get()) return <></>
+  if (!LoadingSignal.get()) return <div/>
 
   return (
     <ChakraSpinner

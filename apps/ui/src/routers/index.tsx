@@ -11,7 +11,7 @@ export default createBrowserRouter([
     children: [
       {
         index: true,
-        element: <></>,
+        element: <div/>,
       },
       {
         path: AppRoutes.ProductList,
@@ -23,11 +23,11 @@ export default createBrowserRouter([
           },
           {
             path: AppRoutes.ProductDetail,
-            element: <></>,
+            element: <div/>,
           },
           {
             path: AppRoutes.ProductSearch,
-            element: <></>,
+            element: <div/>,
           },
         ],
       },
