@@ -7,7 +7,7 @@ const API_KEY = import.meta.env.VITE_API_KEY
 const CONTENT_TYPE = 'Content-Type'
 
 export const REQUEST_CONFIG = {
-  isMock: IS_MOCK,
+  isMock: IS_MOCK === 'true',
   baseURL: IS_MOCK ? MOCK_URL : import.meta.env.VITE_API_URL,
   ...(API_KEY.length && {
     apiKey: API_KEY,
@@ -22,3 +22,5 @@ export const AXIOS_CONFIG: AxiosRequestConfig = {
   baseURL: REQUEST_CONFIG.baseURL,
   paramsSerializer: (param: object | null) => qs.stringify(param, { arrayFormat: 'comma' }),
 }
+
+export const TOAST_TIMEOUT = 5000

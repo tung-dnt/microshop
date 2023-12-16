@@ -1,9 +1,13 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 
-import { AXIOS_CONFIG, REQUEST_CONFIG } from '@/constants/config'
+import toast from '@/components/elements/Toast'
+import {
+AXIOS_CONFIG,
+REQUEST_CONFIG,
+TOAST_TIMEOUT,
+} from '@/constants/config'
 import { NETWORK_ERROR } from '@/constants/errors'
-import { NotificationSignal } from '@/signals/common'
 
 export type Request<T> = {
   data?: T | null;
@@ -11,7 +15,7 @@ export type Request<T> = {
   options?: AxiosRequestConfig;
 }
 
-const instance = axios.create(AXIOS_CONFIG)
+const instance = axios.create(AXIOS_CONFIG as AxiosRequestConfig)
 
 const interceptSuccess = (res: AxiosResponse) => res
 
@@ -21,10 +25,12 @@ const interceptError = async <T>(error: T): Promise<AxiosResponse> => {
     const isNetworkError = error.code === NETWORK_ERROR
 
     if (isServerError || isNetworkError) {
-      NotificationSignal.set([{
+      toast({
         status: 'error',
         title: 'Oops! Something went wrong...',
-      }])
+        duration: TOAST_TIMEOUT,
+        isClosable: true,
+      })
     }
   }
 

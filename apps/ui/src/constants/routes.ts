@@ -1,4 +1,4 @@
-const ProductPrefix = '/product'
+const ProductPrefix = '/products'
 
 enum ProductRoutes {
   ProductList = `${ProductPrefix}`,

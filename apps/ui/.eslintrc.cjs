@@ -162,15 +162,15 @@ module.exports = {
         forceSingleLine: false, // true doesn't work well with prettier
       },
     ],
-    // "indent": [
-    //   "error",
-    //   2,
-    //   {
-    //     "ignoredNodes": ["TemplateLiteral *"],
-    //     "offsetTernaryExpressions": true, // does not work
-    //     "SwitchCase": 1
-    //   }
-    // ],
+    "indent": [
+      "error",
+      2,
+      {
+        "ignoredNodes": ["TemplateLiteral *"],
+        "offsetTernaryExpressions": true, // does not work
+        "SwitchCase": 1
+      }
+    ],
     "import/prefer-default-export": "off",
     "jsdoc/require-jsdoc": "off",
     "jsdoc/no-undefined-types": "off",
