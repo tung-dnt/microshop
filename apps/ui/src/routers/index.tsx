@@ -1,12 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { NotFound } from '@/components/elements'
 import { AppRoutes } from '@/constants/routes'
 import { CommonLayout, ProductLayout } from '@/layouts'
 import { ProductList } from '@/pages'
 
 export default createBrowserRouter([
   {
-    ErrorBoundary: () => <>404</>,
+    ErrorBoundary: () => <NotFound />,
     element: <CommonLayout />,
     children: [
       {

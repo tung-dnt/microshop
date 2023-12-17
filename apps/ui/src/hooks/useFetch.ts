@@ -3,10 +3,10 @@ import { atom, useAtom } from 'jotai'
 import type { Request } from '@/utils/axios'
 import request from '@/utils/axios'
 
-const loader = atom(false)
+const atomIsLoading = atom(false)
 
-export default function useFetch<T>() {
-  const [isLoading, setLoading] = useAtom(loader)
+export function useFetch<T>() {
+  const [isLoading, setLoading] = useAtom(atomIsLoading)
 
   const requestHttp = async (requestConfig: Request<T>) => {
     setLoading(true)

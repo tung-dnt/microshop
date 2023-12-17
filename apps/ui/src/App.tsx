@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import router from '@/routers'
 import theme from '@/styles/theme'
 
-import './App.css'
+import '@/styles/global.css'
 
 function App() {
   return (

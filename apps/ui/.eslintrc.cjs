@@ -41,6 +41,7 @@ module.exports = {
     "consistent-return": 0,
     "react-refresh/only-export-components": 0,
     // ts eslint
+    "eslint-comments/disable-enable-pair": 0,
     "@typescript-eslint/consistent-type-assertions": [
       "error",
       {
@@ -405,6 +406,7 @@ module.exports = {
     ],
     // It's not accurate in the monorepo style
     "import/no-extraneous-dependencies": "off",
+    "react/jsx-props-no-spreading": 0
   },
   overrides: [
     {

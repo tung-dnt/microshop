@@ -1,13 +1,15 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 
-import toast from '@/components/elements/Toast'
+import { toast } from '@/components/elements'
 import {
-AXIOS_CONFIG,
-REQUEST_CONFIG,
-TOAST_TIMEOUT,
+  AXIOS_CONFIG,
+  REQUEST_CONFIG,
+  TOAST_TIMEOUT,
 } from '@/constants/config'
 import { NETWORK_ERROR } from '@/constants/errors'
+
+import { keycloak } from './keycloak'
 
 export type Request<T> = {
   data?: T | null;
@@ -48,6 +50,10 @@ export default async function request<T>({
 }: Request<T>) {
   const response = await instance.request<T, AxiosResponse<T>>({
     url: REQUEST_CONFIG.isMock ? `${url}.json` : url,
+    headers: {
+      ...AXIOS_CONFIG.headers,
+      Authorization: `Bearer ${keycloak?.token}`,
+    },
     ...options,
   })
 
