@@ -118,6 +118,7 @@ module.exports = {
         typedefs: true,
       },
     ],
+    "@typescript-eslint/no-floating-promises": 0,
     // eslint
     "array-bracket-spacing": ["error", "never"],
     "arrow-parens": ["error", "always"],

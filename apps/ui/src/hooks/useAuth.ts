@@ -7,43 +7,44 @@ import { keycloak } from '@/utils/keycloak'
 const atomAuthenticated = atom<null | undefined | boolean>(undefined)
 
 // eslint-disable-next-line @typescript-eslint/require-await
-// const atomUserInfo = atom(async (get) => {
-//   const isAuthenticated = get(atomAuthenticated)
+const atomUserInfo = atom(async (get) => {
+  const isAuthenticated = get(atomAuthenticated)
 
-//   if (!isAuthenticated) return null
+  if (!isAuthenticated) return null
 
-//   return request({ url: '/auth/me' })
-// })
+  return keycloak.loadUserProfile()
+})
 
 export function useAuth() {
   const [authenticated, setAuthenticated] = useAtom(atomAuthenticated)
   const [_, setLoading] = useAtom(atomModalOpen)
-  // const [userInfo] = useAtom(atomUserInfo)
+  const [userInfo] = useAtom(atomUserInfo)
 
   const requireLogin = async () => {
     setLoading(true)
 
-    const [error, response] = await catchAsync(
+    const [error, isLogin] = await catchAsync(
       keycloak.init({ onLoad: 'login-required' }) as Promise<boolean>,
     )
 
     if (error) setAuthenticated(null)
 
-    setAuthenticated(response)
+    setAuthenticated(isLogin)
     setLoading(false)
   }
 
-  const login = async () => {
-    await keycloak.init({ onLoad: 'check-sso' })
+  const initializeAuthorizer = async () => {
+    const [error, isLogin] = await catchAsync(
+      keycloak.init({ onLoad: 'check-sso' }) as Promise<boolean>,
+    )
 
-    await keycloak.login()
+    if (error) setAuthenticated(null)
+    setAuthenticated(isLogin)
   }
 
-  const logout = async () => {
-    await keycloak.init({ onLoad: 'check-sso' })
+  const login = () => keycloak.login()
 
-    await keycloak.logout()
-  }
+  const logout = () =>  keycloak.logout()
 
   return {
     // userInfo,
@@ -51,5 +52,7 @@ export function useAuth() {
     requireLogin,
     login,
     logout,
+    initializeAuthorizer,
+    userInfo,
   }
 }

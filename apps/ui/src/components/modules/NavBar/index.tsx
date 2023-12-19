@@ -4,7 +4,7 @@ import { atom, useAtom } from 'jotai'
 import { useAuth } from '@/hooks'
 
 import { LoginButton } from './components/LogInButton'
-import { LogoutButton } from './components/LogoutButton'
+import { LogoutButton } from './components/LogOutButton'
 import { NavItem } from './components/NavItem'
 import { NavMobileToggleButton } from './components/NavMobileToggleButton'
 import { navItems } from './constants'
