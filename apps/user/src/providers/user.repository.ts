@@ -1,37 +1,18 @@
-import { Injectable } from '@nestjs/common'
-import { Prisma } from '@prisma/user'
-import { PrismaService } from './prisma.service'
+import { NodePgDatabase } from 'drizzle-orm/node-postgres'
+import { Inject, Injectable } from '@nestjs/common'
+import { users } from '@shared/database'
+import { RegisterDto } from 'src/controllers/dto/register.dto'
 
 @Injectable()
 export class UserRepository {
-  constructor(private prisma: PrismaService) {
+  constructor(@Inject('DATABASE_CONNECTION') private dbClient: NodePgDatabase) {
   }
 
-  async findUniqueBy(uniqQuery: Prisma.UsersWhereUniqueInput) {
-    const authorizedQuery =  {
-      userOnRoles: {
-        select: {
-          role: {
-            select: {
-              name: true,
-              roleOnPermissions: {
-                select: {
-                  permission: {
-                    select: { name: true }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    return this.prisma.users.findUnique({
-      where: uniqQuery,
-      include: {
-        ...authorizedQuery,
-        address: true
-      }
-    })
+  async findMany() {
+    return await this.dbClient.select().from(users)
+  }
+
+  async insert(data: RegisterDto) {
+    return await this.dbClient.insert(users).values(data).returning()
   }
 }

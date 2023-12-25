@@ -17,6 +17,7 @@ module.exports = {
     '@typescript-eslint',
     'unused-imports',
     'import',
+    "simple-import-sort",
   ],
   rules: {
     indent: ['error', 2, { ignoredNodes: ['TemplateLiteral > *'], SwitchCase: 1 }],
@@ -29,6 +30,7 @@ module.exports = {
         ignoreRestSiblings: true,
       },
     ],
+    "unused-imports/no-unused-imports": "error",
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: true }],
     semi: ['error', 'never'],
     'no-prototype-builtins': 0,
