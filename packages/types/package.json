@@ -12,6 +12,7 @@
     "linkDirectory": true
   },
   "devDependencies": {
+    "@shared/database": "workspace:*",
     "typescript": "^5.2.2"
   }
 }

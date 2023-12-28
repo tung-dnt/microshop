@@ -1,12 +1,16 @@
-import { CanActivate, ExecutionContext, HttpException, Injectable } from '@nestjs/common'
+import { HttpService } from '@nestjs/axios'
+import {
+  CanActivate,
+  ExecutionContext,
+  HttpException,
+  Injectable
+} from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
-import { ConfigService } from '@nestjs/config'
-import { HttpService } from '@nestjs/axios'
-import { AxiosInstance } from 'axios'
-import pick from 'lodash/pick'
 import { UserProfile } from '@shared/types'
 import { catchAsync } from '@shared/utils'
+import { AxiosInstance } from 'axios'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -35,6 +39,7 @@ export class AuthGuard implements CanActivate {
 
     const token = this.getToken(request.authorization)
     const user = await this.serializeUser(token)
+
     if (!user || !user.permissions) return false
     request.user = user
 
@@ -51,7 +56,9 @@ export class AuthGuard implements CanActivate {
     allowedPermissions: string[];
   }): boolean {
     const { userPermissions, allowedPermissions } = payload
+
     if (!allowedPermissions) return true
+
     return userPermissions.some((item) => allowedPermissions.includes(item))
   }
 
@@ -77,9 +84,10 @@ export class AuthGuard implements CanActivate {
     const tokenUser = this.validateToken(token)
     const [error, { data: user }] = await catchAsync(
       this.axios.get<UserProfile>('http://user:5000/api/users/profile', {
-        data: pick(tokenUser, ['email', 'tel'])
+        params: { keycloakId: tokenUser.sid }
       }),
     )
+
     if(error) throw new HttpException('Can not serialize user', 500)
 
     return user

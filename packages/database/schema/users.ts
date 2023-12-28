@@ -1,7 +1,7 @@
 import { relations, sql } from 'drizzle-orm';
-import { bigint, bigserial, char, integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { bigint, bigserial, char, integer, pgTable, primaryKey, text, timestamp } from 'drizzle-orm/pg-core';
 
-export const Users = pgTable('users', {
+export const users = pgTable('users', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
   keycloakId: char('keycloak_id', { length: 36 }).notNull().unique(),
   firstname: text('firstname').notNull(),
@@ -12,9 +12,14 @@ export const Users = pgTable('users', {
   updatedAt: timestamp("updated_at", { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const UserAddresses = pgTable('user_addresses', {
+export const userRelations = relations(users, ({ many }) => ({
+  addresses: many(userAddresses, { relationName: 'addresses' }),
+  roles: many(usersOnRoles),
+}))
+
+export const userAddresses = pgTable('user_addresses', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
-  userId: bigint('user_id', { mode: 'number' }).notNull().references(() => Users.id, {
+  userId: bigint('user_id', { mode: 'number' }).notNull().references(() => users.id, {
     onDelete: 'cascade', 
     onUpdate: 'cascade'
   }),
@@ -27,7 +32,15 @@ export const UserAddresses = pgTable('user_addresses', {
   detail: text('detail'),
 })
 
-export const Roles = pgTable('roles', {
+export const userAddressesRelations = relations(userAddresses, ({ one }) => ({
+  user: one(users, {
+    fields: [userAddresses.userId],
+    references: [users.id],
+    relationName: 'users',
+  }),
+}))
+
+export const roles = pgTable('roles', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
   name: text('name').notNull().unique(),
   description: text('description'),
@@ -37,7 +50,13 @@ export const Roles = pgTable('roles', {
   updatedAt: timestamp("updated_at", { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const Permissions = pgTable('permissions', {
+export const rolesRelations = relations(roles, ({ many }) => ({
+  users: many(usersOnRoles, { relationName: 'users' }),
+  permissions: many(rolesOnPermissions),
+}))
+
+
+export const permissions = pgTable('permissions', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
   name: text('name').notNull().unique(),
   description: text('description'),
@@ -47,45 +66,32 @@ export const Permissions = pgTable('permissions', {
   updatedAt: timestamp("updated_at", { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const UsersOnRoles = pgTable('users_on_roles', {
-  userId: bigint('user_id', { mode: 'number' }).notNull().references(() => Users.id, {
+export const permissionsRelations = relations(permissions, ({ many }) => ({
+  roles: many(rolesOnPermissions),
+}))
+
+export const usersOnRoles = pgTable('users_on_roles', {
+  userId: bigint('user_id', { mode: 'number' }).notNull().references(() => users.id, {
     onDelete: 'cascade', 
     onUpdate: 'cascade'
   }),
-  roleId: bigint('role_id', { mode: 'number' }).notNull().references(() => Roles.id, {
+  roleId: bigint('role_id', { mode: 'number' }).notNull().references(() => roles.id, {
     onDelete: 'cascade', 
     onUpdate: 'cascade'
   })
-})
+}, (t) => ({
+  pk: primaryKey({ columns: [t.userId, t.roleId] }),
+}))
 
-export const RolesOnPermissions = pgTable('roles_on_permissions', {
-  roleId: bigint('role_id', { mode: 'number' }).notNull().references(() => Roles.id, {
+export const rolesOnPermissions = pgTable('roles_on_permissions', {
+  roleId: bigint('role_id', { mode: 'number' }).notNull().references(() => roles.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
-  permissionId: bigint('permission_id', { mode: 'number' }).notNull().references(() => Permissions.id, {
+  permissionId: bigint('permission_id', { mode: 'number' }).notNull().references(() => permissions.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   })
-})
-
-export const UserRelations = relations(Users, ({ many }) => ({
-  addresses: many(UserAddresses),
-  roles: many(UsersOnRoles),
-}))
-
-export const UserAddressesRelations = relations(UserAddresses, ({ one }) => ({
-  user: one(Users, {
-    fields: [UserAddresses.userId],
-    references: [Users.id],
-  }),
-}))
-
-export const RolesRelations = relations(Roles, ({ many }) => ({
-  users: many(UsersOnRoles),
-  permissions: many(RolesOnPermissions),
-}))
-
-export const PermissionsRelations = relations(Permissions, ({ many }) => ({
-  roles: many(RolesOnPermissions),
+}, (t) => ({
+  pk: primaryKey({ columns: [t.permissionId, t.roleId] }),
 }))

@@ -1,18 +1,21 @@
-import { NestFactory } from '@nestjs/core'
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
-import { ConfigService } from '@nestjs/config'
 import { ValidationPipe } from '@nestjs/common'
-import helmet from 'helmet'
-import cookieParser from 'cookie-parser'
+import { ConfigService } from '@nestjs/config'
+import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger'
 import { HttpErrorFilter } from '@shared/providers'
+import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
+
 import { UserModule } from './user.module'
 
 async function bootstrap() {
   // @ts-ignore
-  BigInt.prototype.toJSON = function () {
+  BigInt.prototype.toJSON = function() {
     return Number(this.toString())
   }
+
   const app = await NestFactory.create(UserModule)
+
   app.setGlobalPrefix('api')
   app.use(helmet())
   app.use(cookieParser())
@@ -29,9 +32,11 @@ async function bootstrap() {
     .setVersion('1.0')
     .build()
   const document = SwaggerModule.createDocument(app, options)
+
   SwaggerModule.setup('api', app, document)
 
   const configService = app.get(ConfigService)
+
   await app.listen(configService.get('port') as string)
 }
 

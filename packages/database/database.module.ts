@@ -1,6 +1,6 @@
 import { Module, DynamicModule, Global } from '@nestjs/common'
 import { Client } from 'pg'
-import { drizzle } from 'drizzle-orm/node-postgres'
+import { zdrizzle } from 'drizzle-orm/node-postgres'
 
 @Global()
 @Module({})
@@ -17,7 +17,7 @@ export class DatabaseModule {
       useFactory: async () => {
         const client = new Client(options)
         await client.connect()
-        return drizzle(client)
+        return zdrizzle(client)
       },
     }
 
