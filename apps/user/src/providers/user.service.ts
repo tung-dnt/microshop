@@ -12,6 +12,10 @@ export class UserService {
   async findMany() {
     return await this.userRepository.findMany()
   }
+
+  async findFirst(query: RegisterDto) {
+    return await this.userRepository.findFirst(query)
+  }
   // axios.post(`${KCHOST}/auth/realms/${REALM}/protocol/openid-connect/token`, {
   //   client_id: CLIENT_ID,
   //   client_secret: CLIENT_SECRET,
@@ -25,11 +29,6 @@ export class UserService {
   //   .catch(error => {
   //     console.error(error);
   //   });
-
-  async findUnique(param: Prisma.UsersWhereUniqueInput): Promise<UserProfile> {
-    const roles: Array<string> = []
-    const permissions: Array<string> = []
-    const user = await this.userRepository.findUniqueBy(param)
 
   async insert(data: RegisterDto) {
     return await this.userRepository.insert(data)

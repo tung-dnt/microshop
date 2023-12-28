@@ -13,8 +13,5 @@
   },
   "devDependencies": {
     "typescript": "^5.2.2"
-  },
-  "dependencies": {
-    "@shared/prisma": "workspace:*"
   }
 }
