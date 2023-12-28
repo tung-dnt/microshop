@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 
 import { ApiTags } from '@nestjs/swagger'
 import { UserService } from '../providers/user.service'
@@ -10,15 +10,9 @@ import { RegisterDto } from './dto/register.dto'
 export class UserController {
   constructor(private readonly userService: UserService) {}
   
-  // @Get('profile')
-  // async getUserProfile(@Query() query: Prisma.UsersWhereUniqueInput) {
-  //   return this.userService.findUnique(query)
-  // }
-
-  @Get()
-  async getAll() {
-    console.log('test')
-    return this.userService.findMany()
+  @Get('profile')
+  async getUserProfile(@Query() query: RegisterDto) {
+    return this.userService.findFirst(query)
   }
 
   @Post()

@@ -1,2 +1,3 @@
 export * from './database.module'
-export * from './schema/index'
+export * from './schema'
+export * from './models'

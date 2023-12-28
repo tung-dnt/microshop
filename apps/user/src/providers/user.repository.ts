@@ -1,6 +1,6 @@
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
 import { Inject, Injectable } from '@nestjs/common'
-import { users } from '@shared/database'
+import { Users } from '@shared/database'
 import { RegisterDto } from 'src/controllers/dto/register.dto'
 
 @Injectable()
@@ -9,10 +9,14 @@ export class UserRepository {
   }
 
   async findMany() {
-    return await this.dbClient.select().from(users)
+    return this.dbClient.select().from(Users)
+  }
+
+  async findFirst(query: RegisterDto) {
+    return this.dbClient.select().from(Users).where(query).limit(1)
   }
 
   async insert(data: RegisterDto) {
-    return await this.dbClient.insert(users).values(data).returning()
+    return this.dbClient.insert(Users).values(data).returning()
   }
 }
