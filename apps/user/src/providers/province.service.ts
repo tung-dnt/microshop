@@ -1,22 +1,13 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
 import { HttpService } from '@nestjs/axios'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { catchAsync } from '@shared/utils'
-import pick from 'lodash/pick'
 import { AxiosInstance } from 'axios'
-import { AddressRepositoryParams } from '../../types/userAddress'
-
-type AddressDetailParams = {
-  province: number
-  district: number
-  ward: number
-  detail?: string | null
-}
-
-enum AddressType {
-  PROVINCE = 'p',
-  DISTRICT = 'd',
-  WARD = 'w'
-}
+import pick from 'lodash/pick'
+import {
+  AddressDetailParams,
+  AddressRepositoryParams,
+  AddressType
+} from 'models/userAddress'
 
 @Injectable()
 export class ProvinceService {
@@ -47,6 +38,7 @@ export class ProvinceService {
   private async getAddressUnitByCode(code: number, addressType: AddressType): Promise<{name: string, code: number}> {
     const axios: AxiosInstance = this.httpService.axiosRef
     const { data } = await axios.get(`${this.apiPath}/${addressType}/${code}`)
+
     return pick(data, ['name', 'code'])
   }
 }

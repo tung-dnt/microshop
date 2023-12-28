@@ -22,7 +22,7 @@
     "strictPropertyInitialization": false
   },
   "typeRoots": [
-    "types",
+    "models",
     "./node_modules/@types",
   ]
 }

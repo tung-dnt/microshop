@@ -497,6 +497,9 @@ importers:
 
   packages/types:
     devDependencies:
+      '@shared/database':
+        specifier: workspace:*
+        version: link:../database
       typescript:
         specifier: ^5.2.2
         version: 5.2.2
