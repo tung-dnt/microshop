@@ -1,7 +1,6 @@
 import { catchAsync } from '@shared/utils/catcher'
 import { atom, useAtom } from 'jotai'
 
-import { atomModalOpen } from '@/components/modules'
 import { keycloak } from '@/utils/keycloak'
 
 const atomAuthenticated = atom<null | undefined | boolean>(undefined)
@@ -17,21 +16,7 @@ const atomUserInfo = atom(async (get) => {
 
 export function useAuth() {
   const [authenticated, setAuthenticated] = useAtom(atomAuthenticated)
-  const [_, setLoading] = useAtom(atomModalOpen)
   const [userInfo] = useAtom(atomUserInfo)
-
-  const requireLogin = async () => {
-    setLoading(true)
-
-    const [error, isLogin] = await catchAsync(
-      keycloak.init({ onLoad: 'login-required' }) as Promise<boolean>,
-    )
-
-    if (error) setAuthenticated(null)
-
-    setAuthenticated(isLogin)
-    setLoading(false)
-  }
 
   const initializeAuthorizer = async () => {
     const [error, isLogin] = await catchAsync(
@@ -45,6 +30,12 @@ export function useAuth() {
   const login = () => keycloak.login()
 
   const logout = () =>  keycloak.logout()
+
+  const requireLogin = async () => {
+    // DO NOT CHANGE
+    if (authenticated || authenticated === undefined) return
+    await login()
+  }
 
   return {
     // userInfo,
