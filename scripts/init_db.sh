@@ -11,8 +11,8 @@ touch models/${service}.ts
 echo "import type { Config } from 'drizzle-kit'
 
 export default {
-  schema: '../schema/${service}.ts',
-  out: '../migrations/${service}', // migrations folder
+  schema: '../../packages/database/schema/${service}.ts',
+  out: '../../packages/database/migrations/${service}', // migrations folder
   driver: 'pg', // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso',
   strict: true,
   verbose: true,
@@ -20,7 +20,7 @@ export default {
     host: '${service}_db',
     user: 'root',
     password: 'password',
-    database: 'microshop',
+    database: 'postgres',
     port: 5432,
   },
 } satisfies Config" > configs/${service}.config.ts

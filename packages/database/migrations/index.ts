@@ -3,9 +3,11 @@ import { drizzle } from 'drizzle-orm/node-postgres'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
 import { Client } from 'pg'
 
+const path = require('path')
+
 async function runMigrations() {
   const serviceName = process.env.SERVICE_NAME // TODO: need to discuss how to get service name from env
-  const configurations = (await import(`../configs/${serviceName}.config`)) satisfies Config
+  const configurations = (await import(`../configs/${serviceName}.config`)).default satisfies Config
 
   if(!configurations) {
     throw new Error('Configurations not found')
@@ -17,7 +19,7 @@ async function runMigrations() {
   // ======== CONNECT TO DATABASE AND RUN MIGRATIONS ========
   await client.connect()
   // This will run migrations on the database, skipping the ones already applied
-  await migrate(db, { migrationsFolder: `../migrations/${serviceName}` })
+  await migrate(db, { migrationsFolder: path.resolve(__dirname, `../migrations/${serviceName}`) })
   // Don't forget to close the connection, otherwise the script will hang
   await client.end()
 }

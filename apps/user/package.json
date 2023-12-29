@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:push": "pnpm drizzle-kit push:pg --config=../../packages/database/configs/user.config.ts",
     "db:generate": "pnpm drizzle-kit generate:pg --config=../../packages/database/configs/user.config.ts",
-    "db:migrate": "SERVICE_NAME=user tsx ../../packages/database/migrations/index.ts"
+    "db:migrate": "SERVICE_NAME=user npx ts-node ../../packages/database/migrations/index.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.0",

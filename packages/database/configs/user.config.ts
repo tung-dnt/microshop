@@ -1,8 +1,8 @@
 import type { Config } from 'drizzle-kit'
 
 export default {
-  schema: '../schema/user.ts',
-  out: '../migrations/user', // migrations folder
+  schema: '../../packages/database/schema/user.ts',
+  out: '../../packages/database/migrations/user', // migrations folder
   driver: 'pg', // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso',
   strict: true,
   verbose: true,
@@ -10,7 +10,7 @@ export default {
     host: 'user_db',
     user: 'root',
     password: 'password',
-    database: 'microshop',
+    database: 'postgres',
     port: 5432,
   },
 } satisfies Config
