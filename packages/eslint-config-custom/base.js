@@ -12,6 +12,7 @@ module.exports = {
     },
     ecmaVersion: 12,
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: [
     '@typescript-eslint',
@@ -21,6 +22,73 @@ module.exports = {
     "import-newlines",
   ],
   rules: {
+    // ts eslint
+    "eslint-comments/disable-enable-pair": 0,
+    "@typescript-eslint/consistent-type-assertions": [
+      "error",
+      {
+        assertionStyle: "as",
+        objectLiteralTypeAssertions: "allow-as-parameter",
+      },
+    ],
+    "@typescript-eslint/consistent-type-exports": "error",
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      { disallowTypeAnnotations: false },
+    ],
+    "@typescript-eslint/func-call-spacing": "error",
+    "key-spacing": "off",
+    "@typescript-eslint/key-spacing": "error",
+    "keyword-spacing": "off",
+    "@typescript-eslint/keyword-spacing": [
+      "error",
+      {
+        before: true,
+        after: true,
+      },
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        multiline: {
+          delimiter: "semi",
+          requireLast: true,
+        },
+        singleline: {
+          delimiter: "semi",
+          requireLast: false,
+        },
+      },
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        selector: "default",
+        format: ["camelCase", "PascalCase", "UPPER_CASE"],
+        leadingUnderscore: "allow",
+      },
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "error",
+      {
+        ignoreRestArgs: true,
+      },
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        argsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        vars: "all",
+        args: "none",
+      },
+    ],
+    "object-curly-spacing": "error",
+    "@typescript-eslint/object-curly-spacing": 0,
+    "@typescript-eslint/quotes": "off",
+    "space-before-blocks": "off",
+    "@typescript-eslint/space-before-blocks": "error",
+    "@typescript-eslint/type-annotation-spacing": "error",
     'linebreak-style': ['error', 'unix'],
     '@typescript-eslint/no-unused-vars': [
       'error',

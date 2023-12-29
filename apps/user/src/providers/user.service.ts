@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { UserProfile } from '@shared/types'
-import { RegisterDto } from 'src/controllers/dto/register.dto'
+import type { UserProfile } from '@shared/types'
+import type { RegisterDto } from 'src/controllers/dto/register.dto'
 
 import { UserRepository } from './user.repository'
 

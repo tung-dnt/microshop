@@ -1,11 +1,13 @@
 import { HttpService } from '@nestjs/axios'
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { catchAsync } from '@shared/utils'
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 import pick from 'lodash/pick'
-import {
+import type {
   AddressDetailParams,
-  AddressRepositoryParams,
+  AddressRepositoryParams
+} from 'models/userAddress'
+import {
   AddressType
 } from 'models/userAddress'
 
@@ -22,7 +24,7 @@ export class ProvinceService {
       ])
     })())
 
-    if(error) throw new BadRequestException('invalid address')
+    if (error) throw new BadRequestException('invalid address')
 
     return {
       province: response[0]?.code,
@@ -35,7 +37,7 @@ export class ProvinceService {
     }
   }
 
-  private async getAddressUnitByCode(code: number, addressType: AddressType): Promise<{name: string, code: number}> {
+  private async getAddressUnitByCode(code: number, addressType: AddressType): Promise<{name: string; code: number}> {
     const axios: AxiosInstance = this.httpService.axiosRef
     const { data } = await axios.get(`${this.apiPath}/${addressType}/${code}`)
 
