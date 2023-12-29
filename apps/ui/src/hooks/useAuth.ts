@@ -5,7 +5,6 @@ import { keycloak } from '@/utils/keycloak'
 
 const atomAuthenticated = atom<null | undefined | boolean>(undefined)
 
-// eslint-disable-next-line @typescript-eslint/require-await
 const atomUserInfo = atom(async (get) => {
   const isAuthenticated = get(atomAuthenticated)
 
@@ -20,7 +19,7 @@ export function useAuth() {
 
   const initializeAuthorizer = async () => {
     const [error, isLogin] = await catchAsync(
-      keycloak.init({ onLoad: 'check-sso' }) as Promise<boolean>,
+      keycloak.init({ onLoad: 'check-sso' }),
     )
 
     if (error) setAuthenticated(null)

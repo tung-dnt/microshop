@@ -15,7 +15,9 @@ export function withAuth(
   return function HOC(props: any) {
     const { authenticated, requireLogin } = useAuth()
 
-    useInitEffect(requireLogin)
+    useInitEffect(() => {
+      requireLogin()
+    })
 
     /* ========== REDERING LOGIC ========== */
 

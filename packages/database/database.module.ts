@@ -1,6 +1,8 @@
 import { Module, DynamicModule, Global } from '@nestjs/common'
 import { Client } from 'pg'
-import { zdrizzle } from 'drizzle-orm/node-postgres'
+import { drizzle } from 'drizzle-orm/node-postgres'
+
+import { DB_PROVIDER_TOKEN } from './constants'
 
 @Global()
 @Module({})
@@ -13,11 +15,11 @@ export class DatabaseModule {
     port: number
   }): DynamicModule {
     const databaseProvider = {
-      provide: 'DATABASE_CONNECTION',
+      provide: DB_PROVIDER_TOKEN,
       useFactory: async () => {
         const client = new Client(options)
         await client.connect()
-        return zdrizzle(client)
+        return drizzle(client)
       },
     }
 

@@ -12,11 +12,11 @@ export class UserService {
   }
 
   async findMany() {
-    return await this.userRepository.findMany()
+    return this.userRepository.findMany()
   }
 
   async findFirst(keycloakId: string): Promise<UserProfile> {
-    return await this.userRepository.findByKeycloakId(keycloakId)
+    return this.userRepository.findByKeycloakId(keycloakId)
   }
   // axios.post(`${KCHOST}/auth/realms/${REALM}/protocol/openid-connect/token`, {
   //   client_id: CLIENT_ID,
@@ -33,6 +33,6 @@ export class UserService {
   //   });
 
   async insert(data: RegisterDto) {
-    return await this.userRepository.insert(data)
+    return this.userRepository.insert(data)
   }
 }

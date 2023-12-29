@@ -1,7 +1,9 @@
-import {
+import type {
   ArgumentsHost,
+  ExceptionFilter
+} from '@nestjs/common'
+import {
   Catch,
-  ExceptionFilter,
   HttpException,
   HttpStatus,
   Logger,
