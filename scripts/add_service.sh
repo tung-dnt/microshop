@@ -5,8 +5,8 @@ cd apps
 
 nest new ${workspace} --package-manager pnpm --language TS --skip-git --strict
 
-pnpm add @shared/utils lodash --filter ${workspace}
-pnpm add -D tsconfig eslint-config-custom @shared/types @types/lodash --filter ${workspace}
+pnpm add @shared/utils @shared/database class-validator@0.14.0 dayjs@1.11.10 drizzle-orm@0.29.1 lodash@4.17.21 class-transformer@0.5.1 --filter ${workspace}
+pnpm add -D tsconfig eslint-config-custom @shared/types @types/lodash drizzle-kit@0.20.7 --filter ${workspace}
 
 cd ${workspace}
 
@@ -47,6 +47,5 @@ echo "FROM node:18-alpine as base
       RUN npm i --location=global --save-exact pnpm@8.6.11
       COPY ./scripts ./scripts
       RUN chmod -R 744 scripts
-      RUN ./scripts/generate_db_clients.sh
 
       CMD pnpm --filter ${workspace} start:dev" > "Dockerfile.local"

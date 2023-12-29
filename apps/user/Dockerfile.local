@@ -34,6 +34,5 @@ RUN npm i --location=global --save-exact pnpm@8.6.11
 
 COPY ./scripts ./scripts
 RUN chmod -R 744 scripts
-RUN ./scripts/generate_db_clients.sh
 
 CMD pnpm --filter user start:dev

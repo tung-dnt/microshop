@@ -18,8 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "generate-migration": "pnpm drizzle-kit generate:pg",
-    "migrate": "cd migration && npx tsx index.ts"
+    "db:push": "pnpm drizzle-kit push:pg --config=../../packages/database/configs/user.config.ts",
+    "db:generate": "pnpm drizzle-kit generate:pg --config=../../packages/database/configs/user.config.ts",
+    "db:migrate": "SERVICE_NAME=user tsx ../../packages/database/migrations/index.ts"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.0",
@@ -45,7 +46,6 @@
     "drizzle-orm": "^0.29.1",
     "helmet": "^7.1.0",
     "lodash": "^4.17.21",
-    "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },

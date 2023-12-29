@@ -2,49 +2,30 @@
 read -p "Enter existing workspace name : " service
 echo $service >> scripts/microservices.txt
 
-cd apps/${service}
+cd packages/database
 
-pnpm add @prisma/client@5.3.1 @shared/prisma prisma@5.3.1
+mkdir migrations/${service}
+touch schema/${service}.ts
+touch models/${service}.ts
 
-pnpm pkg set "scripts.db:push"="pnpm prisma db push"
-pnpm pkg set "scripts.seed"="pnpm prisma db seed"
-pnpm pkg set "prisma.schema"="../../packages/prisma/schemas/${service}/${service}.prisma"
-pnpm pkg set "prisma.seed"="ts-node ../../packages/prisma/schemas/${service}/seed.ts"
+echo "import type { Config } from 'drizzle-kit'
 
-cd src
-mkdir "db"
-cd db
-# Create DB service file
-echo "import { Injectable, OnModuleInit } from '@nestjs/common'
-      import { PrismaClient } from '@prisma/${service}'
-      import { softDelete } from '@shared/prisma'
+export default {
+  schema: '../schema/${service}.ts',
+  out: '../migrations/${service}', // migrations folder
+  driver: 'pg', // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso',
+  strict: true,
+  verbose: true,
+  dbCredentials: {
+    host: '${service}_db',
+    user: 'root',
+    password: 'password',
+    database: 'microshop',
+    port: 5432,
+  },
+} satisfies Config" > configs/${service}.config.ts
 
-      @Injectable()
-      export class PrismaService extends PrismaClient implements OnModuleInit {
-        async onModuleInit() {
-          this.\$use(softDelete)
-          await this.\$connect()
-        }
-      }" > "prisma.service.ts"
-
-cd ../../../../packages/prisma/schemas
-mkdir ${service}
-cd ${service}
-
-echo "DATABASE_URL=\"postgresql://root:password@${service}_db:5432/${service}\"" > .env
-
-# Initialize base config of schema
-echo "
-generator client {
-  provider           = \"prisma-client-js\"
-  previewPermissions = [\"fullTextSearch\"]
-  output             = \"../../../../node_modules/@prisma/${service}\"
-}
-
-datasource db {
-  provider = \"postgresql\"
-  url      = env(\"DATABASE_URL\")
-}
-" > "${service}.prisma"
-
-pnpm prisma format
+cd ../../apps/${service}
+pnpm pkg set "scripts.db:push"="drizzle-kit push:pg --config=../../packages/database/configs/${service}.config.ts"
+pnpm pkg set "scripts.db:generate"="drizzle-kit generate:pg --config=../../packages/database/configs/${service}.config.ts"
+pnpm pkg set "scripts.db:migrate"="SERVICE_NAME=${service} tsx ../../packages/database/migrations/index.ts"
