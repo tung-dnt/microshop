@@ -1,16 +1,18 @@
 import { HttpService } from '@nestjs/axios'
-import {
+import type {
   CanActivate,
-  ExecutionContext,
+  ExecutionContext
+} from '@nestjs/common'
+import {
   HttpException,
   Injectable
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
-import { UserProfile } from '@shared/types'
+import type { UserProfile } from '@shared/types'
 import { catchAsync } from '@shared/utils'
-import { AxiosInstance } from 'axios'
+import type { AxiosInstance } from 'axios'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -88,7 +90,7 @@ export class AuthGuard implements CanActivate {
       }),
     )
 
-    if(error) throw new HttpException('Can not serialize user', 500)
+    if (error) throw new HttpException('Can not serialize user', 500)
 
     return user
   }

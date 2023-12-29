@@ -6,10 +6,10 @@ import {
   users,
   usersOnRoles
 } from '@shared/database'
-import { UserProfile } from '@shared/types'
+import type { UserProfile } from '@shared/types'
 import { eq, sql } from 'drizzle-orm'
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
-import { RegisterDto } from 'src/controllers/dto/register.dto'
+import type { RegisterDto } from 'src/controllers/dto/register.dto'
 
 @Injectable()
 export class UserRepository {

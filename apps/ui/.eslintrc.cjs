@@ -143,7 +143,6 @@ module.exports = {
     "comma-spacing": ["error", { before: false, after: true }],
     "comma-style": ["error", "last"],
     curly: ["error", "multi-or-nest", "consistent"],
-    eqeqeq: "error",
     "import/extensions": [
       "error",
       "ignorePackages",
