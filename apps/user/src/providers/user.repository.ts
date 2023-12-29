@@ -6,6 +6,7 @@ import {
   users,
   usersOnRoles
 } from '@shared/database'
+import { DB_PROVIDER_TOKEN } from '@shared/database/constants'
 import type { UserProfile } from '@shared/types'
 import { eq, sql } from 'drizzle-orm'
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
@@ -13,7 +14,7 @@ import type { RegisterDto } from 'src/controllers/dto/register.dto'
 
 @Injectable()
 export class UserRepository {
-  constructor(@Inject('DATABASE_CONNECTION') private db: NodePgDatabase) {
+  constructor(@Inject(DB_PROVIDER_TOKEN) private db: NodePgDatabase) {
   }
 
   async findMany() {

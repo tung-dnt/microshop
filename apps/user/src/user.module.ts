@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { JwtService } from '@nestjs/jwt'
 import { DatabaseModule } from '@shared/database'
+import UserDbConfig from '@shared/database/configs/user.config'
 
 import configuration from '../env'
 
@@ -18,13 +19,7 @@ import { UserService } from './providers/user.service'
       isGlobal: true,
       load: [configuration],
     }),
-    DatabaseModule.forRoot({
-      user: 'root',
-      host: 'user_db',
-      database: 'microshop_users',
-      password: 'password',
-      port: 5432
-    })
+    DatabaseModule.forRoot(UserDbConfig.dbCredentials)
   ],
   controllers: [
     UserController

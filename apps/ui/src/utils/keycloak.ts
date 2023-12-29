@@ -1,6 +1,6 @@
-import type { KeycloakConfig } from 'keycloak-js'
 import Keycloak from 'keycloak-js'
 
 import { KEYCLOAK_CONFIG } from '@/constants/config'
 
-export const keycloak = new Keycloak(KEYCLOAK_CONFIG as KeycloakConfig)
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+export const keycloak = new Keycloak(KEYCLOAK_CONFIG)

@@ -6,13 +6,14 @@ import pick from 'lodash/pick'
 import type {
   AddressDetailParams,
   AddressRepositoryParams
-} from 'models/userAddress'
+} from 'types/userAddress'
 import {
   AddressType
-} from 'models/userAddress'
+} from 'types/userAddress'
 
 @Injectable()
 export class ProvinceService {
+  // TODO: remove hard-coded api path
   private readonly apiPath = 'https://provinces.open-api.vn/api'
   constructor(private readonly httpService: HttpService) {}
   public async findAddress(params: AddressDetailParams): Promise<AddressRepositoryParams> {

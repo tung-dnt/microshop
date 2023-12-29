@@ -17,7 +17,7 @@ export type Request<T> = {
   options?: AxiosRequestConfig;
 }
 
-const instance = axios.create(AXIOS_CONFIG as AxiosRequestConfig)
+const instance = axios.create(AXIOS_CONFIG)
 
 const interceptSuccess = (res: AxiosResponse) => res
 
