@@ -3,12 +3,12 @@ import type { KeycloakConfig } from 'keycloak-js'
 import qs from 'qs'
 
 const MOCK_URL = `${window.location.protocol}//${window.location.host}/mocks`
-const IS_MOCK = import.meta.env.VITE_MOCK
+const IS_MOCK = import.meta.env.VITE_MOCK === 'true'
 const API_KEY = import.meta.env.VITE_API_KEY
 const CONTENT_TYPE = 'Content-Type'
 
 export const REQUEST_CONFIG = {
-  isMock: IS_MOCK === 'true',
+  isMock: IS_MOCK,
   timeout: 10000,
   baseURL: IS_MOCK ? MOCK_URL : import.meta.env.VITE_API_URL,
   ...(API_KEY.length && {

@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
+    server: {
+      host: true, // To expose Vite server to Docker network
+    },
     resolve: {
       alias: {
         '@': resolve(__dirname, 'src'),

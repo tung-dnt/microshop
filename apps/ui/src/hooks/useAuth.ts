@@ -37,7 +37,6 @@ export function useAuth() {
   }
 
   return {
-    // userInfo,
     authenticated,
     requireLogin,
     login,

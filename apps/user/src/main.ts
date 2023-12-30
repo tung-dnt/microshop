@@ -9,11 +9,6 @@ import helmet from 'helmet'
 import { UserModule } from './user.module'
 
 async function bootstrap() {
-  // @ts-ignore
-  BigInt.prototype.toJSON = function() {
-    return Number(this.toString())
-  }
-
   const app = await NestFactory.create(UserModule)
 
   app.setGlobalPrefix('api')
