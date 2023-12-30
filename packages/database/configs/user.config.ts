@@ -7,10 +7,10 @@ export default {
   strict: true,
   verbose: true,
   dbCredentials: {
-    host: 'user_db',
+    host: 'localhost',
     user: 'root',
     password: 'password',
     database: 'postgres',
-    port: 5432,
+    port: 5433,
   },
 } satisfies Config

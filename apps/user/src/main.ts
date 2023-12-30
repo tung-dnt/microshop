@@ -1,8 +1,8 @@
 import { ValidationPipe } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger'
-import { HttpErrorFilter } from '@shared/providers'
+import { EnvService } from '@shared/env/dist'
+import {  HttpErrorFilter } from '@shared/providers'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 
@@ -27,12 +27,12 @@ async function bootstrap() {
     .setVersion('1.0')
     .build()
   const document = SwaggerModule.createDocument(app, options)
+  const env: EnvService = app.get(EnvService)
 
   SwaggerModule.setup('api', app, document)
 
-  const configService = app.get(ConfigService)
 
-  await app.listen(configService.get('port') as string)
+  await app.listen(env.get('tcp.port') as string)
 }
 
 bootstrap()

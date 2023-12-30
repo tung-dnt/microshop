@@ -110,7 +110,7 @@ module.exports = {
     'no-prototype-builtins': 0,
     'no-unused-vars': 0,
     '@typescript-eslint/ban-ts-comment': 0,
-    'import/order': 'error',
+    'import/order': 0,
     'import/no-duplicates': 'error',
     'import/newline-after-import': 'error',
     'object-curly-spacing': ['error', 'always'],

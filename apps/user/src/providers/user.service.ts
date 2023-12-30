@@ -8,6 +8,7 @@ import { UserRepository } from './user.repository'
 export class UserService {
   constructor(
     private userRepository: UserRepository,
+    // private env: EnvService
   ) {
   }
 
@@ -33,6 +34,7 @@ export class UserService {
   //   });
 
   async insert(data: RegisterDto) {
+    // return this.env.get('dbName')
     return this.userRepository.insert(data)
   }
 }

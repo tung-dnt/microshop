@@ -15,6 +15,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "outDir": "./dist",
+    "strictPropertyInitialization": false
   },
   "exclude": ["node_modules"]
 }
