@@ -17,8 +17,8 @@ export class DbConfig {
   @IsString()
     host: string
 
-@IsNumber()
-  port: number
+  @IsNumber()
+    port: number
 
   @IsString()
     user: string

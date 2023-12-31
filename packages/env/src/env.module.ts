@@ -15,9 +15,7 @@ import * as path from 'path'
 
 import type { OPTIONS_TYPE } from './env.module-definition'
 import { ConfigurableModuleClass } from './env.module-definition'
-
 import { EnvService } from './env.service'
-
 
 @Global()
 @Module({})
@@ -54,8 +52,6 @@ export class EnvModule extends ConfigurableModuleClass {
     const [root, extension] = ['config', '.json']
     const configs = ['global', env ? `global.${env}` : false, 'local', env ? `local.${env}` : false]
 
-
-
     const configFilePaths = configs
       .filter(Boolean)
       .map(String)
@@ -70,8 +66,6 @@ export class EnvModule extends ConfigurableModuleClass {
 
     return config
   }
-
-
 
   private static validate<T extends object>(klass: ClassConstructor<T>, config: T) {
     const validatedConfig = plainToClass(klass, config, { enableImplicitConversion: true })

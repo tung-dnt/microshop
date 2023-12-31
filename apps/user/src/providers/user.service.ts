@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import type { User } from '@shared/database'
 import type { UserProfile } from '@shared/types'
 import type { RegisterDto } from 'src/controllers/dto/register.dto'
 
@@ -6,17 +7,13 @@ import { UserRepository } from './user.repository'
 
 @Injectable()
 export class UserService {
-  constructor(
-    private userRepository: UserRepository,
-    // private env: EnvService
-  ) {
-  }
+  constructor(private userRepository: UserRepository) {}
 
   async findMany() {
     return this.userRepository.findMany()
   }
 
-  async findFirst(keycloakId: string): Promise<UserProfile> {
+  async findByKeycloakId(keycloakId: string): Promise<UserProfile> {
     return this.userRepository.findByKeycloakId(keycloakId)
   }
   // axios.post(`${KCHOST}/auth/realms/${REALM}/protocol/openid-connect/token`, {
@@ -33,8 +30,7 @@ export class UserService {
   //     console.error(error);
   //   });
 
-  async insert(data: RegisterDto) {
-    // return this.env.get('dbName')
+  async insert(data: RegisterDto): Promise<User> {
     return this.userRepository.insert(data)
   }
 }

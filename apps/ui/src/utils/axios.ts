@@ -15,28 +15,28 @@ export type Request<T> = {
   data?: T | null;
   url: string;
   options?: AxiosRequestConfig;
-}
+};
 
-const instance = axios.create(AXIOS_CONFIG)
+const instance = axios.create( AXIOS_CONFIG )
 
-const interceptSuccess = (res: AxiosResponse) => res
+const interceptSuccess = ( res: AxiosResponse ) => res
 
-const interceptError = async <T>(error: T): Promise<AxiosResponse> => {
-  if (axios.isAxiosError(error)) {
+const interceptError = async <T>( error: T ): Promise<AxiosResponse> => {
+  if ( axios.isAxiosError( error ) ) {
     const isServerError = error.response && error.response?.status >= 500
     const isNetworkError = error.code === NETWORK_ERROR
 
-    if (isServerError || isNetworkError) {
-      toast({
+    if ( isServerError || isNetworkError ) {
+      toast( {
         status: 'error',
         title: 'Oops! Something went wrong...',
         duration: TOAST_TIMEOUT,
         isClosable: true,
-      })
+      } )
     }
   }
 
-  return Promise.reject(error)
+  return Promise.reject( error )
 }
 
 instance.interceptors.response.use(
@@ -44,18 +44,19 @@ instance.interceptors.response.use(
   interceptError,
 )
 
-export default async function request<T>({
+export default async function request<T>( {
   url,
   options,
-}: Request<T>) {
-  const response = await instance.request<T, AxiosResponse<T>>({
+}: Request<T> ) {
+  const response = await instance.request<T, AxiosResponse<T>>( {
     url: REQUEST_CONFIG.isMock ? `${url}.json` : url,
+    ...AXIOS_CONFIG,
     headers: {
       ...AXIOS_CONFIG.headers,
       Authorization: `Bearer ${keycloak?.token}`,
     },
     ...options,
-  })
+  } )
 
   return response.data
 }

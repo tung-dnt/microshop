@@ -1,17 +1,16 @@
 import type { Config } from 'drizzle-kit'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { migrate } from 'drizzle-orm/node-postgres/migrator'
+import * as path from 'path'
 import { Client } from 'pg'
-
-const path = require('path')
 
 async function runMigrations() {
   const serviceName = process.env.SERVICE_NAME
   const configurations = (await import(`../configs/${serviceName}.config`)).default satisfies Config
 
-  if(!configurations) {
+  if (!configurations)
     throw new Error('Configurations not found')
-  }
+
 
   const client = new Client(configurations.dbCredentials)
   const db = drizzle(client)

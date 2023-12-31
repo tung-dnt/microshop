@@ -3,7 +3,6 @@
   "version": 3,
   "name": "Microshop Gateway",
   "timeout": "3000ms",
-  "cache_ttl": "300s",
   "output_encoding": "json",
   "disable_rest": true,
   "extra_config": {
@@ -27,9 +26,6 @@
         "OPTIONS",
         "PATCH"
       ],
-      "allow_headers": [
-        "Authorization"
-      ],
       "allow_credentials": true
     },
     "auth/validator": {
@@ -41,18 +37,26 @@
       "key": "",
       "strategy": "ip",
       "client_capacity": 10,
-      "max_rate": 100,
-      "every": "1s"
+      "max_rate": 1000,
+      "every": "10s"
     }
   },
   "endpoints": [
     {
-      "endpoint": "/api/v1/users/profile",
+      "endpoint": "/api/v1/auth/me",
       "method": "GET",
       "output_encoding": "json",
+      "concurrent_calls": 1,
+      "input_query_strings": [
+        "*"
+      ],
+      "input_headers": [
+        "User-Agent",
+        "Authorization"
+      ],
       "backend": [
         {
-          "url_pattern": "/api/users/profile",
+          "url_pattern": "/api/v1/users/profile",
           "encoding": "json",
           "method": "GET",
           "host": [
@@ -71,11 +75,7 @@
           "issuer": "http://localhost:8080/realms/microshop",
           "audience": ["account"]
         }
-      },
-      "input_query_strings": [
-        "*"
-      ],
-      "concurrent_calls": 1
+      }
     }
   ]
 }

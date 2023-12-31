@@ -16,7 +16,6 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -39,6 +38,7 @@ module.exports = {
     "react-refresh",
   ],
   rules: {
+    "@typescript-eslint/semi": 0,
     "consistent-return": 0,
     "react-refresh/only-export-components": 0,
     // ts eslint
@@ -121,7 +121,7 @@ module.exports = {
     ],
     "@typescript-eslint/no-floating-promises": 0,
     // eslint
-    "array-bracket-spacing": ["error", "never"],
+    "array-bracket-spacing": ["error", "always"],
     "arrow-parens": ["error", "always"],
     "arrow-spacing": [
       "error",
@@ -347,7 +347,7 @@ module.exports = {
         asyncArrow: "always",
       },
     ],
-    "space-in-parens": ["error", "never"],
+    "space-in-parens": ["error", "always"],
     "space-infix-ops": "error",
     "spaced-comment": "error",
     "wrap-iife": ["error", "inside"],
