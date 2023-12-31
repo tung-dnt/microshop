@@ -133,6 +133,7 @@ module.exports = {
         "SwitchCase": 1
       }
     ],
+    "array-bracket-spacing": ["error", "always"],
     "no-trailing-spaces": "error",
     "no-underscore-dangle": "off",
     "no-whitespace-before-property": "error",

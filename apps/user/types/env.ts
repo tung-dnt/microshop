@@ -1,4 +1,4 @@
-import { GlobalEnv } from '@shared/env/dist'
+import { GlobalEnv } from '@shared/env'
 import { Type } from 'class-transformer'
 import {
   IsIP,

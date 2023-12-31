@@ -7,7 +7,6 @@ import {
   HttpException,
   Injectable
 } from '@nestjs/common'
-import { ConfigService } from '@nestjs/config'
 import { Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
 import type { UserProfile } from '@shared/types'
@@ -22,24 +21,22 @@ export class AuthGuard implements CanActivate {
     private readonly httpService: HttpService,
     private readonly reflector: Reflector,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
+    private readonly path: string
   ) {
     this.axios = this.httpService.axiosRef
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest()
-    const contextHandler = context.getHandler()
-    const isProtected = this.reflector.get('protected', contextHandler)
-
-    if (!isProtected) return true // public request
 
     const allowedPermissions: string[] = this.reflector.get(
       'permissions',
       context.getHandler(),
     )
 
-    const token = this.getToken(request.authorization)
+    if (!allowedPermissions) return true // public request
+
+    const token = this.getToken(request?.headers?.authorization || '')
     const user = await this.serializeUser(token)
 
     if (!user || !user.permissions) return false
@@ -48,7 +45,7 @@ export class AuthGuard implements CanActivate {
     return (
       this.matchAuthor({
         userPermissions: user.permissions,
-        allowedPermissions: allowedPermissions,
+        allowedPermissions,
       })
     )
   }
@@ -69,28 +66,33 @@ export class AuthGuard implements CanActivate {
       token,
       {
         publicKey: this.generatePublicKey(),
-        algorithms: ['RS256']
+        algorithms: [ 'RS256' ]
       }
     )
   }
 
   private getToken(bearer: string) {
-    return bearer.split(' ')[1] ?? ''
+    return bearer?.split(' ')[1] ?? ''
   }
 
   private generatePublicKey() {
-    return `-----BEGIN PUBLIC KEY-----\n${this.configService.get('PUBLIC_KEY')}\n-----END PUBLIC KEY-----`
+    return `-----BEGIN PUBLIC KEY-----\n${process.env.PUBLIC_KEY}\n-----END PUBLIC KEY-----`
   }
 
   private async serializeUser(token: string): Promise<UserProfile> {
+    if (!token) return null
+
     const tokenUser = this.validateToken(token)
-    const [error, { data: user }] = await catchAsync(
-      this.axios.get<UserProfile>('http://user:5000/api/users/profile', {
+    const [ error, { data: user } ] = await catchAsync(
+      // TODO: remove hard-coded url
+      this.axios.get<UserProfile>(this.path, {
         params: { keycloakId: tokenUser.sid }
       }),
     )
 
     if (error) throw new HttpException('Can not serialize user', 500)
+
+    console.log(user)
 
     return user
   }

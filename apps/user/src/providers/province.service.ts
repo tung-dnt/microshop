@@ -17,7 +17,7 @@ export class ProvinceService {
   private readonly apiPath = 'https://provinces.open-api.vn/api'
   constructor(private readonly httpService: HttpService) {}
   public async findAddress(params: AddressDetailParams): Promise<AddressRepositoryParams> {
-    const [error, response] = await catchAsync((async () => {
+    const [ error, response ] = await catchAsync((async () => {
       return Promise.all([
         this.getAddressUnitByCode(params.province, AddressType.PROVINCE),
         this.getAddressUnitByCode(params.district, AddressType.DISTRICT),
@@ -42,6 +42,6 @@ export class ProvinceService {
     const axios: AxiosInstance = this.httpService.axiosRef
     const { data } = await axios.get(`${this.apiPath}/${addressType}/${code}`)
 
-    return pick(data, ['name', 'code'])
+    return pick(data, [ 'name', 'code' ])
   }
 }

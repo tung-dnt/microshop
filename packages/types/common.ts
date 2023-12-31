@@ -11,3 +11,7 @@ export type PagingProps = {
   skip: number
   take: number
 }
+
+export enum AppProviderToken {
+  AUTH = 'AUTH',
+}

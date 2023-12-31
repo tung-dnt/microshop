@@ -1,8 +1,7 @@
-import { ValidationPipe } from '@nestjs/common'
+import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
-import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger'
-import { EnvService } from '@shared/env/dist'
-import {  HttpErrorFilter } from '@shared/providers'
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { HttpErrorFilter } from '@shared/providers'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 
@@ -19,6 +18,7 @@ async function bootstrap() {
     whitelist: true,
     transform: true,
   }))
+  app.enableVersioning({ type: VersioningType.URI })
 
   const options = new DocumentBuilder()
     .setTitle('API docs')
@@ -27,12 +27,11 @@ async function bootstrap() {
     .setVersion('1.0')
     .build()
   const document = SwaggerModule.createDocument(app, options)
-  const env: EnvService = app.get(EnvService)
 
   SwaggerModule.setup('api', app, document)
 
-
-  await app.listen(env.get('tcp.port') as string)
+  // TODO: remove hard-coded port
+  await app.listen(5000)
 }
 
 bootstrap()
