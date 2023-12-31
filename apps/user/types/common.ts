@@ -1,19 +1,19 @@
-import { PagingProps } from '@shared/types'
+import type { PagingProps } from '@shared/types'
 
 export type File = {
-  fieldname: string
-  originalname: string
-  encoding: string
-  mimetype: string
-  buffer: Buffer
-  size: number
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  buffer: Buffer;
+  size: number;
 }
 
 export type BasicQuery = {
-  q?: string
-  from?: Date
-  to?: Date
-  paging?: PagingProps
+  q?: string;
+  from?: Date;
+  to?: Date;
+  paging?: PagingProps;
 }
 
 export enum OrderQuery {

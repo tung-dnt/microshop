@@ -31,6 +31,7 @@ module.exports = {
     "eslint-comments",
     "import-newlines",
     "jsdoc",
+    "unused-imports",
     // "newline-destructuring",
     "promise",
     "simple-import-sort",
@@ -154,6 +155,7 @@ module.exports = {
         tsx: "never",
       },
     ],
+    "unused-imports/no-unused-imports": "error",
     "import-newlines/enforce": [
       "error",
       {

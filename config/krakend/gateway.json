@@ -1,10 +1,81 @@
 {
-  "$schema": "https://www.krakend.io/schema/v3.json",
-  "name": "Microshop Gateway",
+  "$schema": "https://www.krakend.io/schema/krakend.json",
   "version": 3,
-  "port": 8080,
+  "name": "Microshop Gateway",
   "timeout": "3000ms",
   "cache_ttl": "300s",
+  "output_encoding": "json",
   "disable_rest": true,
-  "endpoints": []
+  "extra_config": {
+    "security/cors": {
+      "allow_origins": [
+        "http://localhost",
+        "http://localhost:5173",
+        "http://nginx:80"
+      ],
+      "expose_headers": [
+        "Content-Length",
+        "Content-Type"
+      ],
+      "max_age": "12h",
+      "allow_methods": [
+        "GET",
+        "HEAD",
+        "POST",
+        "PUT",
+        "DELETE",
+        "OPTIONS",
+        "PATCH"
+      ],
+      "allow_headers": [
+        "Authorization"
+      ],
+      "allow_credentials": true
+    },
+    "auth/validator": {
+      "shared_cache_duration": 900
+    },
+    "qos/ratelimit/service": {
+      "capacity": 1000,
+      "client_max_rate": 100,
+      "key": "",
+      "strategy": "ip",
+      "client_capacity": 10,
+      "max_rate": 100,
+      "every": "1s"
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/users/profile",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/api/users/profile",
+          "encoding": "json",
+          "method": "GET",
+          "host": [
+            "http://user:5000"
+          ],
+          "disable_host_sanitize": false
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "jwk_url": "http://keycloak:8080/realms/microshop/protocol/openid-connect/certs",
+          "cache": true,
+          "disable_jwk_security": true,
+          "operation_debug": true,
+          "issuer": "http://localhost:8080/realms/microshop",
+          "audience": ["account"]
+        }
+      },
+      "input_query_strings": [
+        "*"
+      ],
+      "concurrent_calls": 1
+    }
+  ]
 }

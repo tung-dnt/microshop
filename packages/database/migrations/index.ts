@@ -6,7 +6,7 @@ import { Client } from 'pg'
 const path = require('path')
 
 async function runMigrations() {
-  const serviceName = process.env.SERVICE_NAME // TODO: need to discuss how to get service name from env
+  const serviceName = process.env.SERVICE_NAME
   const configurations = (await import(`../configs/${serviceName}.config`)).default satisfies Config
 
   if(!configurations) {

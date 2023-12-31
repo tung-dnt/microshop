@@ -1,6 +1,7 @@
 import { catchAsync } from '@shared/utils/catcher'
 import { atom, useAtom } from 'jotai'
 
+import request from '@/utils/axios'
 import { keycloak } from '@/utils/keycloak'
 
 const atomAuthenticated = atom<null | undefined | boolean>(undefined)
@@ -10,7 +11,7 @@ const atomUserInfo = atom(async (get) => {
 
   if (!isAuthenticated) return null
 
-  return keycloak.loadUserProfile()
+  return request({ url: '/v1/users/profile' })
 })
 
 export function useAuth() {
