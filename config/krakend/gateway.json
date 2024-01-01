@@ -3,7 +3,8 @@
   "version": 3,
   "name": "Microshop Gateway",
   "timeout": "3000ms",
-  "output_encoding": "json",
+  "output_encoding": "no-op",
+  "cache_ttl": "300s",
   "disable_rest": true,
   "extra_config": {
     "security/cors": {
@@ -45,7 +46,6 @@
     {
       "endpoint": "/api/v1/auth/me",
       "method": "GET",
-      "output_encoding": "json",
       "concurrent_calls": 1,
       "input_query_strings": [
         "*"
@@ -56,8 +56,7 @@
       ],
       "backend": [
         {
-          "url_pattern": "/api/v1/users/profile",
-          "encoding": "json",
+          "url_pattern": "/api/users/profile",
           "method": "GET",
           "host": [
             "http://user:5000"

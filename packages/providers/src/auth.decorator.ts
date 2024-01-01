@@ -5,6 +5,8 @@ import type { UserPermission } from '@shared/types'
 export const Permissions = (...permissions: UserPermission[]) =>
   SetMetadata('permissions', permissions)
 
+export const Secured = () => SetMetadata('secured', true)
+
 export const User = createParamDecorator(
   (_: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest()

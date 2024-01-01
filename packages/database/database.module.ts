@@ -1,9 +1,8 @@
 import type { DynamicModule } from '@nestjs/common'
 import { Global,Module } from '@nestjs/common'
+import { DB_PROVIDER_TOKEN } from '@shared/constants'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { Client } from 'pg'
-
-import { DB_PROVIDER_TOKEN } from './constants'
 
 @Global()
 @Module({})

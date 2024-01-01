@@ -1,8 +1,9 @@
-import { HttpModule, HttpService } from '@nestjs/axios'
+import { HttpModule } from '@nestjs/axios'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { APP_GUARD, Reflector } from '@nestjs/core'
+import { APP_GUARD } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
+import { AUTH_GUARD_ENDPOINT } from '@shared/constants'
 import { DatabaseModule } from '@shared/database'
 import UserDbConfig from '@shared/database/configs/user.config'
 import { EnvModule } from '@shared/env'
@@ -11,10 +12,22 @@ import { Env } from 'types/env'
 
 import configuration from '../env'
 
-import { UserController } from './controllers/user.controller'
-import { ProvinceService } from './providers/province.service'
-import { UserRepository } from './providers/user.repository'
-import { UserService } from './providers/user.service'
+import { ProvinceService } from './province/province.service'
+import { UserController } from './user/user.controller'
+import { UserRepository } from './user/user.repository'
+import { UserService } from './user/user.service'
+
+const AuthGuardService = [
+  {
+    provide: AUTH_GUARD_ENDPOINT,
+    // TODO: remove hard-coded url
+    useValue: 'http://localhost:5000/api/users/serialize',
+  },
+  {
+    provide: APP_GUARD,
+    useClass: AuthGuard,
+  }
+]
 
 @Module({
   imports: [
@@ -34,19 +47,8 @@ import { UserService } from './providers/user.service'
     UserService,
     UserRepository,
     ProvinceService,
-    {
-      provide: APP_GUARD,
-      useFactory: () => {
-        const url = 'http://localhost:5000/api/v1/users/serialize'
-
-        return new AuthGuard(
-          new HttpService(),
-          new Reflector(),
-          new JwtService(),
-          url
-        )
-      },
-    }
+    JwtService,
+    ...AuthGuardService
   ],
 })
 

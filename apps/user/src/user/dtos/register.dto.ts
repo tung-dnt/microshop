@@ -1,8 +1,11 @@
-import { IsEmail, IsString } from 'class-validator'
+import {
+  IsEmail,
+  IsString
+} from 'class-validator'
 
 export class RegisterDto {
   @IsString()
-    keycloakId: string
+    id: string
 
   @IsString()
     firstname: string
@@ -14,7 +17,7 @@ export class RegisterDto {
     email: string
 
   @IsString()
-    password: string
+    realm: string
 
   @IsString()
     username: string

@@ -6,11 +6,10 @@ export type UserTokenInfo = {
 }
 
 export enum UserPermission {
-  EDIT_PRODUCTS = 'edit_product'
-}
-
-export enum UserRole {
-  CUSTOMER = 'customer'
+  VIEW_PRODUCTS = 'view_products',
+  BUY_PRODUCTS = 'buy_products',
+  COMMENT_IN_BOUGHT_PRODUCTS = 'comment_in_bought_products',
+  COMMENT_IN_POST = 'comment_in_post',
 }
 
 export type UserProfile = Pick<User, 'id' | 'email'> & {
