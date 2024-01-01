@@ -31,6 +31,7 @@
     "@nestjs/microservices": "^10.2.1",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.1.16",
+    "@shared/constants": "workspace:^",
     "@shared/database": "workspace:^1.0.0",
     "@shared/env": "workspace:^1.0.0",
     "@shared/providers": "workspace:^",

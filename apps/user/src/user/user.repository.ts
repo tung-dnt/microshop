@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { DB_PROVIDER_TOKEN } from '@shared/constants'
 import {
-  DB_PROVIDER_TOKEN,
   permissions,
   roles,
   rolesOnPermissions,
@@ -10,7 +10,7 @@ import {
 import type { UserProfile } from '@shared/types'
 import { eq, sql } from 'drizzle-orm'
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
-import type { RegisterDto } from 'src/controllers/dto/register.dto'
+import type { RegisterDto } from 'src/user/dto/register.dto'
 
 @Injectable()
 export class UserRepository {
@@ -21,11 +21,12 @@ export class UserRepository {
     return this.db.select().from(users)
   }
 
+  // TODO: fix this query
   async findByKeycloakId(keycloakId: string): Promise<UserProfile> {
     return (await this.db
       .select({
         id: users.id,
-        fullName: sql<string>`concat(${users.firstname}, " ", ${users.lastname})`,
+        fullName: sql<string>`concat(${users.firstname}, ' ', ${users.lastname})`,
         email: users.email,
         roles: sql<Array<string>>`array_agg(${roles.name})`,
         permissions: sql<Array<string>>`array_agg(${permissions.name})`,
@@ -36,6 +37,7 @@ export class UserRepository {
       .leftJoin(rolesOnPermissions, eq(roles.id, rolesOnPermissions.roleId))
       .leftJoin(permissions, eq(permissions.id, rolesOnPermissions.permissionId))
       .where(eq(users.keycloakId, keycloakId))
+      .groupBy(users.id)
       .limit(1))[0]
   }
 

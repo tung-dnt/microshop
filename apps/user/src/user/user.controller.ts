@@ -2,17 +2,14 @@ import {
   Body,
   Controller,
   Get,
-  Param,
-  Post
+  HttpCode,
+  Post,
+  Query
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { Permissions } from '@shared/providers'
-import {
-  UserPermission
-} from '@shared/types'
-import { UserService } from 'src/providers/user.service'
-
-import { RegisterDto } from './dto/register.dto'
+import { Permissions,User } from '@shared/providers'
+import { UserPermission, UserProfile } from '@shared/types'
+import { UserService } from 'src/user/user.service'
 
 @ApiTags('users')
 @Controller({
@@ -24,17 +21,20 @@ export class UserController {
 
   @Permissions(UserPermission.EDIT_PRODUCTS)
   @Get('profile')
-  async getUserProfile() {
-    return { success: true }
+  async getUserProfile(@User() user: UserProfile) {
+    if (!user) return null
+
+    return user
   }
 
   @Get('serialize')
-  async serializeUserFromKeycloakId(@Param('keycloakId') id: string) {
+  async serializeUserFromKeycloakId(@Query('keycloakId') id: string) {
     return this.userService.findByKeycloakId(id)
   }
 
   @Post()
-  async createUser(@Body() data: RegisterDto) {
+  @HttpCode(201)
+  async createUser(@Body() data) {
     return this.userService.insert(data)
   }
 }

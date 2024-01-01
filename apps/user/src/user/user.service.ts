@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import type { User } from '@shared/database'
 import type { UserProfile } from '@shared/types'
-import type { RegisterDto } from 'src/controllers/dto/register.dto'
+import type { RegisterDto } from 'src/user/dto/register.dto'
 
 import { UserRepository } from './user.repository'
 
@@ -30,7 +30,14 @@ export class UserService {
   //     console.error(error);
   //   });
 
-  async insert(data: RegisterDto): Promise<User> {
-    return this.userRepository.insert(data)
+  async insert(data): Promise<User> {
+    const payload = {}
+
+    Object.keys(data).forEach((key) => {
+      if (!data[key]) return
+      payload[key] = data[key][0]
+    })
+
+    return this.userRepository.insert(payload as RegisterDto)
   }
 }

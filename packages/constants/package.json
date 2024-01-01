@@ -1,0 +1,25 @@
+{
+  "name": "@shared/constants",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "publishConfig": {
+    "access": "public",
+    "linkDirectory": true
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.42.0",
+    "eslint-config-custom": "workspace:*",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-import-newlines": "^1.3.4",
+    "typescript": "^5.2.2"
+  }
+}

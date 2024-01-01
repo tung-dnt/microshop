@@ -4,11 +4,12 @@ import type {
   ExecutionContext
 } from '@nestjs/common'
 import {
-  HttpException,
+  Inject,
   Injectable
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
+import { AUTH_GUARD_ENDPOINT } from '@shared/constants'
 import type { UserProfile } from '@shared/types'
 import { catchAsync } from '@shared/utils'
 import type { AxiosInstance } from 'axios'
@@ -21,7 +22,7 @@ export class AuthGuard implements CanActivate {
     private readonly httpService: HttpService,
     private readonly reflector: Reflector,
     private readonly jwtService: JwtService,
-    private readonly path: string
+    @Inject(AUTH_GUARD_ENDPOINT) private readonly path: string
   ) {
     this.axios = this.httpService.axiosRef
   }
@@ -41,6 +42,7 @@ export class AuthGuard implements CanActivate {
 
     if (!user || !user.permissions) return false
     request.user = user
+    console.log({ user })
 
     return (
       this.matchAuthor({
@@ -81,19 +83,15 @@ export class AuthGuard implements CanActivate {
 
   private async serializeUser(token: string): Promise<UserProfile> {
     if (!token) return null
-
     const tokenUser = this.validateToken(token)
-    const [ error, { data: user } ] = await catchAsync(
+
+    const [ error, response ] = await catchAsync(
       // TODO: remove hard-coded url
       this.axios.get<UserProfile>(this.path, {
         params: { keycloakId: tokenUser.sid }
       }),
     )
 
-    if (error) throw new HttpException('Can not serialize user', 500)
-
-    console.log(user)
-
-    return user
+    return error ? null : response.data
   }
 }

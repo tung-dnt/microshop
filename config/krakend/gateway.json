@@ -4,6 +4,7 @@
   "name": "Microshop Gateway",
   "timeout": "3000ms",
   "output_encoding": "json",
+  "cache_ttl": "300s",
   "disable_rest": true,
   "extra_config": {
     "security/cors": {
