@@ -24,7 +24,7 @@ export class UserRepository {
     return (await this.db
       .select({
         id: users.id,
-        fullName: sql<string>`concat(${users.firstname}, ' ', ${users.lastname})`,
+        fullName: sql<string>`concat(${users.firstName}, ' ', ${users.lastName})`,
         email: users.email,
         roles: sql<Array<string>>`array_agg(${roles.name})`,
         permissions: sql<Array<string>>`array_agg(${permissions.name})`,

@@ -10,7 +10,8 @@
     "init:dev": "./scripts/init.dev.sh",
     "create:service": "./scripts/add_service.sh",
     "create:db": "./scripts/init_db.sh",
-    "remove:service": "./scripts/remove_service.sh"
+    "remove:service": "./scripts/remove_service.sh",
+    "link-configs": "node tools/scripts/link-configs.js"
   },
   "devDependencies": {
     "eslint": "^8.47.0",
