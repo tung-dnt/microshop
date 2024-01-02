@@ -5,7 +5,7 @@ import { HttpErrorFilter } from '@shared/providers'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 
-import { UserModule } from './user.module'
+import { UserModule } from './user/user.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(UserModule)

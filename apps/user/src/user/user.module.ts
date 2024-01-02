@@ -10,12 +10,12 @@ import { EnvModule } from '@shared/env'
 import { AuthGuard } from '@shared/providers'
 import { Env } from 'types/env'
 
-import configuration from '../env'
+import configuration from '../../env'
+import { ProvinceService } from '../province/province.service'
 
-import { ProvinceService } from './province/province.service'
-import { UserController } from './user/user.controller'
-import { UserRepository } from './user/user.repository'
-import { UserService } from './user/user.service'
+import { UserController } from './user.controller'
+import { UserRepository } from './user.repository'
+import { UserService } from './user.service'
 
 const AuthGuardService = [
   {
@@ -39,10 +39,10 @@ const AuthGuardService = [
     }),
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [ configuration ],
+      load: [configuration],
     }),
   ],
-  controllers: [ UserController ],
+  controllers: [UserController],
   providers: [
     UserService,
     UserRepository,
