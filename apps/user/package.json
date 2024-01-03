@@ -33,7 +33,7 @@
     "@nestjs/swagger": "^7.1.16",
     "@shared/constants": "workspace:^",
     "@shared/database": "workspace:^1.0.0",
-    "@shared/env": "workspace:^1.0.0",
+    "@shared/config": "workspace:^1.0.0",
     "@shared/providers": "workspace:^",
     "@shared/utils": "workspace:*",
     "aws-sdk": "^2.1339.0",

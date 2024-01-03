@@ -13,7 +13,7 @@ async function globals() {
   const projects = await glob(root('./apps/*'))
 
   for (const project of projects) {
-    const configDir = path.join(path.join(project, './env/'))
+    const configDir = path.join(path.join(project, './_env/'))
 
     // create /config directory if not exists
     if (!(await fs.lstat(configDir).catch(() => null))?.isDirectory()) await fs.mkdir(configDir)
@@ -41,7 +41,7 @@ async function locals() {
         .split('.')
         .map((x) => x.trim())
         .slice(0, -1)
-      return [x, root(`./apps/${app}/env/local${env ? '.' + env : ''}.json`)]
+      return [x, root(`./apps/${app}/_env/local${env ? '.' + env : ''}.json`)]
     })
   )
 
@@ -57,7 +57,7 @@ async function locals() {
         e.code === 'ENOENT'
           ? {
               message: `Unable to proceed with symlinking for file ${config}. Required folder ${
-                to.split('env/local.json')[0]
+                to.split('_env/local.json')[0]
               } is missing.`
             }
           : {}

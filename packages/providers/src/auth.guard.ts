@@ -4,12 +4,11 @@ import type {
   ExecutionContext
 } from '@nestjs/common'
 import {
-  Inject,
   Injectable
 } from '@nestjs/common'
 import { Reflector } from '@nestjs/core'
 import { JwtService } from '@nestjs/jwt'
-import { AUTH_GUARD_ENDPOINT } from '@shared/constants'
+import { EnvService } from '@shared/config'
 import type { UserProfile } from '@shared/types'
 import { catchAsync } from '@shared/utils'
 import type { AxiosInstance } from 'axios'
@@ -22,7 +21,7 @@ export class AuthGuard implements CanActivate {
     private readonly httpService: HttpService,
     private readonly reflector: Reflector,
     private readonly jwtService: JwtService,
-    @Inject(AUTH_GUARD_ENDPOINT) private readonly path: string
+    private readonly envService: EnvService,
   ) {
     this.axios = this.httpService.axiosRef
   }
@@ -73,7 +72,7 @@ export class AuthGuard implements CanActivate {
       token,
       {
         publicKey: this.generatePublicKey(),
-        algorithms: [ 'RS256' ]
+        algorithms: ['RS256']
       }
     )
   }
@@ -83,16 +82,15 @@ export class AuthGuard implements CanActivate {
   }
 
   private generatePublicKey() {
-    return `-----BEGIN PUBLIC KEY-----\n${process.env.PUBLIC_KEY}\n-----END PUBLIC KEY-----`
+    return `-----BEGIN PUBLIC KEY-----\n${this.envService.get('keycloak.publicKey')}\n-----END PUBLIC KEY-----`
   }
 
   private async serializeUser(token: string): Promise<UserProfile> {
     if (!token) return null
     const tokenUser = this.validateToken(token)
-
-    const [ error, response ] = await catchAsync(
-      // TODO: remove hard-coded url
-      this.axios.get<UserProfile>(this.path, {
+    const endpoint = this.envService.get('auth.serializeEndpoint')
+    const [error, response] = await catchAsync(
+      this.axios.get<UserProfile>(endpoint, {
         params: { keycloakId: tokenUser.sid }
       }),
     )

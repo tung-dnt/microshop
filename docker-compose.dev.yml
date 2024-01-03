@@ -50,6 +50,7 @@ services:
       - KC_DB_SCHEMA=public
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
+      - REGISTER_URL=http://user:5000/api/users/register
     command: ['start-dev']
     ports:
       - "8080:8080"

@@ -1,7 +1,18 @@
 {
   "tcp": {
-    "port": 5001,
-    "host": "0.0.0.0"
+    "port": 5000,
+    "host": "localhost"
   },
-  "dbName": "user"
+  "keycloak": {
+    "host": "http://keycloak:8080",
+    "realm": "microshop",
+    "clientId": "microshop",
+    "grantType": "password",
+    "username": "admin",
+    "password": "admin",
+    "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2Fsa+ivG7lGIk0iH2cGJVgGjxzetZ/ZqjiTMX0YZt+Y3pto1mWvfPEyAPOklQ0rHAkag4YKnwdoDKCX/4vysyeCGLvwWJBG/7FfsrIfy1YmD+XC19EueF2R5ArSm8i+YnCgUb8s94q2irg1NA7YSIaEuipsz1A8seHU4cOZCgqMVPxUyvWrc98BtzRFsiG7+xW4LBkUR0A8JhXKqW5Hn1DZtUpCrsqexaqp+Wu6M1cpGh3welaIjVbfL3h8VF3uizYfzIfanSyBTQNAiHZP9BmLr9nbnVpoPOLeiExZh7cOS9KIseGsc2vDjtiOlY60S4iuRnzgbum7JYSZZcvgynQIDAQAB"
+  },
+  "auth": {
+    "serializeEndpoint": "http://localhost:5000/api/users/serialize"
+  }
 }
