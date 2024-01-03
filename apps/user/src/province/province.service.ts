@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios'
 import { BadRequestException, Injectable } from '@nestjs/common'
+import { EnvService } from '@shared/config'
 import { catchAsync } from '@shared/utils'
 import type { AxiosInstance } from 'axios'
 import pick from 'lodash/pick'
@@ -13,11 +14,12 @@ import {
 
 @Injectable()
 export class ProvinceService {
-  // TODO: remove hard-coded api path
-  private readonly apiPath = 'https://provinces.open-api.vn/api'
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly envService: EnvService
+  ) {}
   public async findAddress(params: AddressDetailParams): Promise<AddressRepositoryParams> {
-    const [ error, response ] = await catchAsync((async () => {
+    const [error, response] = await catchAsync((async () => {
       return Promise.all([
         this.getAddressUnitByCode(params.province, AddressType.PROVINCE),
         this.getAddressUnitByCode(params.district, AddressType.DISTRICT),
@@ -40,8 +42,9 @@ export class ProvinceService {
 
   private async getAddressUnitByCode(code: number, addressType: AddressType): Promise<{name: string; code: number}> {
     const axios: AxiosInstance = this.httpService.axiosRef
-    const { data } = await axios.get(`${this.apiPath}/${addressType}/${code}`)
+    const provinceApiPath = this.envService.get('provinceApi')
+    const { data } = await axios.get(`${provinceApiPath}/${addressType}/${code}`)
 
-    return pick(data, [ 'name', 'code' ])
+    return pick(data, ['name', 'code'])
   }
 }

@@ -15,3 +15,9 @@ export type PagingProps = {
 export enum AppProviderToken {
   AUTH = 'AUTH',
 }
+
+export enum Environment {
+  Development = 'development',
+  Production = 'production',
+  Test = 'test'
+}

@@ -5,37 +5,30 @@ import {
   NotImplementedException
 } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import type { ClassConstructor } from 'class-transformer'
-import { plainToClass } from 'class-transformer'
-import { validateSync } from 'class-validator'
+import type { Environment } from '@shared/types'
 import { destr } from 'destr'
 import * as fs from 'fs'
-import { merge } from 'lodash'
+import merge from 'lodash/merge'
 import * as path from 'path'
 
-import type { OPTIONS_TYPE } from './env.module-definition'
 import { ConfigurableModuleClass } from './env.module-definition'
 import { EnvService } from './env.service'
 
 @Global()
 @Module({})
 export class EnvModule extends ConfigurableModuleClass {
-  public static register(options: typeof OPTIONS_TYPE): DynamicModule {
+  public static register(env: Environment): DynamicModule {
     return {
       module: EnvModule,
       imports: [
         ConfigModule.forRoot({
           ignoreEnvFile: true,
-          load: [
-            () => {
-              return this.validate(options.class, this.load(options.env))
-            },
-          ],
+          load: [() => this.load(env)],
         }),
       ],
       // providers and exports have to be re/defined here because we're overriding the register method
-      providers: [ EnvService ],
-      exports: [ EnvService ],
+      providers: [EnvService],
+      exports: [EnvService],
     }
   }
 
@@ -48,9 +41,9 @@ export class EnvModule extends ConfigurableModuleClass {
     throw new NotImplementedException()
   }
 
-  private static load(env?: string) {
+  private static load(env?: Environment) {
     let config: Record<string, unknown> = {}
-    const [ root, extension ] = [ 'env', '.json' ]
+    const [root, extension] = ['_env', '.json']
     const configs = [
       'global',
       env ? `global.${env}` : false,
@@ -74,21 +67,5 @@ export class EnvModule extends ConfigurableModuleClass {
       config = merge(config, readJson(configFilePath))
 
     return config
-  }
-
-  private static validate<T extends object>(
-    klass: ClassConstructor<T>,
-    config: T
-  ) {
-    const validatedConfig = plainToClass(klass, config, {
-      enableImplicitConversion: true,
-    })
-    const errors = validateSync(validatedConfig, {
-      skipMissingProperties: false,
-    })
-
-    if (errors.length > 0) throw new Error(errors.toString())
-
-    return validatedConfig
   }
 }

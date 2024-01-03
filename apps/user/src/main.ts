@@ -1,6 +1,7 @@
 import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
+import { EnvService } from '@shared/config'
 import { HttpErrorFilter } from '@shared/providers'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
@@ -30,8 +31,12 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, document)
 
-  // TODO: remove hard-coded port
-  await app.listen(5000)
+  const env: EnvService = app.get(EnvService)
+
+  console.log(env.get('tcp.port'))
+  console.log(env.get('auth.serializeEndpoint'))
+
+  await app.listen(env.get('tcp.port') as string)
 }
 
 bootstrap()
