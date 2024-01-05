@@ -364,6 +364,9 @@ importers:
       '@shared/utils':
         specifier: workspace:^
         version: link:../utils
+      '@types/lodash':
+        specifier: ^4.14.182
+        version: 4.14.182
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1

@@ -33,9 +33,6 @@ async function bootstrap() {
 
   const env: EnvService = app.get(EnvService)
 
-  console.log(env.get('tcp.port'))
-  console.log(env.get('auth.serializeEndpoint'))
-
   await app.listen(env.get('tcp.port') as string)
 }
 

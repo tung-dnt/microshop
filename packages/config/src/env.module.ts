@@ -8,7 +8,7 @@ import { ConfigModule } from '@nestjs/config'
 import type { Environment } from '@shared/types'
 import { destr } from 'destr'
 import * as fs from 'fs'
-import merge from 'lodash/merge'
+import { merge } from 'lodash'
 import * as path from 'path'
 
 import { ConfigurableModuleClass } from './env.module-definition'

@@ -32,7 +32,7 @@ export class UserController {
     return this.userService.findByKeycloakId(id)
   }
 
-  @Post()
+  @Post('register')
   @HttpCode(201)
   async createUser(@Body() data) {
     return this.userService.insert(data)
