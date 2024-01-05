@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 name: microshop
 services:
   gateway:
@@ -14,7 +14,7 @@ services:
       - "8090:8090"
     command: ["run", "-d", "-c", "/etc/krakend/gateway.json"]
     healthcheck:
-      test: [ 'CMD', 'wget', '-f', 'http://localhost:8080/__health' ]
+      test: ["CMD", "wget", "-f", "http://localhost:8080/__health"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -51,7 +51,7 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - REGISTER_URL=http://user:5000/api/users/register
-    command: ['start-dev']
+    command: ["start-dev"]
     ports:
       - "8080:8080"
     volumes:
@@ -61,10 +61,10 @@ services:
     container_name: grafana
     image: grafana/grafana:10.2.2-ubuntu
     restart: unless-stopped
-    user: '0'
-#    environment:
-#      - GF_SERVER_ROOT_URL=http://my.grafana.server/
-#      - GF_INSTALL_PLUGINS=grafana-clock-panel
+    user: "0"
+    #    environment:
+    #      - GF_SERVER_ROOT_URL=http://my.grafana.server/
+    #      - GF_INSTALL_PLUGINS=grafana-clock-panel
     volumes:
       - admin_data:/var/lib/grafana
     ports:
@@ -79,6 +79,7 @@ services:
       - ./apps/user:/app/apps/user
       - ./packages:/app/packages
       - /app/node_modules
+      - ./env:/app/env
     depends_on:
       - user_db
 
