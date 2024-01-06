@@ -2,7 +2,7 @@ import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import { EnvService } from '@shared/config'
-import { HttpErrorFilter } from '@shared/providers'
+import { HttpErrorFilter, TransformerPipe } from '@shared/providers'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 
@@ -15,10 +15,13 @@ async function bootstrap() {
   app.use(helmet())
   app.use(cookieParser())
   app.useGlobalFilters(new HttpErrorFilter())
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist: true,
-    transform: true,
-  }))
+  app.useGlobalPipes(
+    new TransformerPipe(),
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    })
+  )
   app.enableVersioning({ type: VersioningType.URI })
 
   const options = new DocumentBuilder()

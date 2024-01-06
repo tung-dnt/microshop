@@ -16,7 +16,7 @@ export const users = pgTable('users', {
   firstName: text('firstname').notNull(),
   lastName: text('lastname').notNull(),
   email: text('email').notNull().unique(),
-  userName: text('username').notNull().unique(),
+  username: text('username').notNull().unique(),
   createdAt: timestamp('created_at', { mode: 'date' }).notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: timestamp('updated_at', { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
 })
@@ -43,8 +43,8 @@ export const userAddresses = pgTable('user_addresses', {
 
 export const userAddressesRelations = relations(userAddresses, ({ one }) => ({
   user: one(users, {
-    fields: [ userAddresses.userId ],
-    references: [ users.id ],
+    fields: [userAddresses.userId],
+    references: [users.id],
     relationName: 'users',
   }),
 }))
@@ -89,7 +89,7 @@ export const usersOnRoles = pgTable('users_on_roles', {
     onUpdate: 'cascade'
   })
 }, (t) => ({
-  pk: primaryKey({ columns: [ t.userId, t.roleId ] }),
+  pk: primaryKey({ columns: [t.userId, t.roleId] }),
 }))
 
 export const rolesOnPermissions = pgTable('roles_on_permissions', {
@@ -102,5 +102,5 @@ export const rolesOnPermissions = pgTable('roles_on_permissions', {
     onUpdate: 'cascade',
   })
 }, (t) => ({
-  pk: primaryKey({ columns: [ t.permissionId, t.roleId ] }),
+  pk: primaryKey({ columns: [t.permissionId, t.roleId] }),
 }))

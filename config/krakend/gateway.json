@@ -13,10 +13,7 @@
         "http://localhost:5173",
         "http://nginx:80"
       ],
-      "expose_headers": [
-        "Content-Length",
-        "Content-Type"
-      ],
+      "expose_headers": ["Content-Length", "Content-Type"],
       "max_age": "12h",
       "allow_methods": [
         "GET",
@@ -47,20 +44,13 @@
       "endpoint": "/api/v1/auth/me",
       "method": "GET",
       "concurrent_calls": 1,
-      "input_query_strings": [
-        "*"
-      ],
-      "input_headers": [
-        "User-Agent",
-        "Authorization"
-      ],
+      "input_query_strings": ["*"],
+      "input_headers": ["User-Agent", "Authorization"],
       "backend": [
         {
           "url_pattern": "/api/users/profile",
           "method": "GET",
-          "host": [
-            "http://user:5000"
-          ],
+          "host": ["http://user:5000"],
           "disable_host_sanitize": false
         }
       ],

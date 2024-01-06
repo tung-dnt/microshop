@@ -1,24 +1,32 @@
-import {
-  IsEmail,
-  IsString
-} from 'class-validator'
+import type { TransformFnParams } from 'class-transformer'
+import { Transform } from 'class-transformer'
+import { IsString } from 'class-validator'
+import isString from 'lodash/isString'
+
+const transform = ({ value }: TransformFnParams) => isString(value) ? value : value[0]
 
 export class RegisterDto {
+  @Transform(transform)
   @IsString()
-    id: string
+    keycloakId: string
 
+  @Transform(transform)
   @IsString()
-    firstname: string
+    firstName: string
 
+  @Transform(transform)
   @IsString()
-    lastname: string
+    lastName: string
 
-  @IsEmail()
+  @Transform(transform)
+  @IsString()
     email: string
 
+  @Transform(transform)
   @IsString()
     realm: string
 
+  @Transform(transform)
   @IsString()
     username: string
 }

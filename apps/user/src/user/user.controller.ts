@@ -2,15 +2,15 @@ import {
   Body,
   Controller,
   Get,
-  HttpCode,
   Post,
   Query
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
-import { Secured, User  } from '@shared/providers'
+import { Secured,User } from '@shared/providers'
 import { UserProfile } from '@shared/types'
 import { UserService } from 'src/user/user.service'
 
+import { RegisterDto } from './dtos/register.dto'
 
 @ApiTags('users')
 // @Controller({
@@ -33,8 +33,7 @@ export class UserController {
   }
 
   @Post('register')
-  @HttpCode(201)
-  async createUser(@Body() data) {
+  async createUser(@Body() data: RegisterDto) {
     return this.userService.insert(data)
   }
 }
