@@ -11,6 +11,8 @@ import type { UserProfile } from '@shared/types'
 import { eq, sql } from 'drizzle-orm'
 import { NodePgDatabase } from 'drizzle-orm/node-postgres'
 
+import type { RegisterDto } from './dtos/register.dto'
+
 @Injectable()
 export class UserRepository {
   constructor(@Inject(DB_PROVIDER_TOKEN) private db: NodePgDatabase) {
@@ -39,7 +41,7 @@ export class UserRepository {
       .limit(1))[0]
   }
 
-  async insert(data) {
+  async insert(data: RegisterDto) {
     return this.db.insert(users).values(data).returning()
   }
 }

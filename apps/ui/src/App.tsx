@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import router from '@/routers'
 import theme from '@/styles/theme'
 
-import { useAuth, useInitEffect } from './hooks'
+import { useAuth, useInitEffect } from '../../ui/src/hooks'
 
 import '@/styles/global.css'
 

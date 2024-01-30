@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import type { User } from '@shared/database'
 import type { UserProfile } from '@shared/types'
 
+import type { RegisterDto } from './dtos/register.dto'
 import { UserRepository } from './user.repository'
 
 @Injectable()
@@ -16,7 +17,7 @@ export class UserService {
     return this.userRepository.findByKeycloakId(keycloakId)
   }
 
-  async insert(data): Promise<User> {
+  async insert(data: RegisterDto): Promise<User> {
     return this.userRepository.insert(data)
 
     // TODO: DELETE KEYCLOAK USER WHEN USER INSERTED FAILED

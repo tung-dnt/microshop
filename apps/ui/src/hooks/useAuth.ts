@@ -4,31 +4,31 @@ import { atom, useAtom } from 'jotai'
 import request from '@/utils/axios'
 import { keycloak } from '@/utils/keycloak'
 
-const atomAuthenticated = atom<null | undefined | boolean>( undefined )
+const atomAuthenticated = atom<null | undefined | boolean>(undefined)
 
-const atomUserInfo = atom( async ( get ) => {
-  const isAuthenticated = get( atomAuthenticated )
+const atomUserInfo = atom(async (get) => {
+  const isAuthenticated = get(atomAuthenticated)
 
-  if ( !isAuthenticated ) return null
+  if (!isAuthenticated) return null
 
-  const [ error, user ] = await catchAsync( request( { url: '/v1/auth/me' } ) )
+  const [error, user] = await catchAsync(request({ url: '/v1/auth/me' }))
 
-  if ( error ) return null
+  if (error) return null
 
   return user
-} )
+})
 
 export function useAuth() {
-  const [ authenticated, setAuthenticated ] = useAtom( atomAuthenticated )
-  const [ userInfo ] = useAtom( atomUserInfo )
+  const [authenticated, setAuthenticated] = useAtom(atomAuthenticated)
+  const [userInfo] = useAtom(atomUserInfo)
 
   const initializeAuthorizer = async () => {
-    const [ error, isLogin ] = await catchAsync(
-      keycloak.init( { onLoad: 'check-sso' } ),
+    const [error, isLogin] = await catchAsync(
+      keycloak.init({ onLoad: 'check-sso' }),
     )
 
-    if ( error ) setAuthenticated( null )
-    setAuthenticated( isLogin )
+    if (error) setAuthenticated(null)
+    setAuthenticated(isLogin)
   }
 
   const login = () => keycloak.login()
@@ -37,7 +37,7 @@ export function useAuth() {
 
   const requireLogin = async () => {
     // DO NOT CHANGE
-    if ( authenticated || authenticated === undefined ) return
+    if (authenticated || authenticated === undefined) return
     await login()
   }
 

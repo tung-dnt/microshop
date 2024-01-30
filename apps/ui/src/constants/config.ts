@@ -11,9 +11,9 @@ export const REQUEST_CONFIG = {
   isMock: IS_MOCK,
   timeout: 10000,
   baseURL: IS_MOCK ? MOCK_URL : import.meta.env.VITE_API_URL,
-  ...( API_KEY.length && {
+  ...(API_KEY.length && {
     apiKey: API_KEY,
-  } ),
+  }),
 }
 
 export const AXIOS_CONFIG: AxiosRequestConfig = {
@@ -24,7 +24,7 @@ export const AXIOS_CONFIG: AxiosRequestConfig = {
   timeout: REQUEST_CONFIG.timeout,
   withCredentials: true,
   baseURL: REQUEST_CONFIG.baseURL,
-  paramsSerializer: ( param: object | null ) => qs.stringify( param, { arrayFormat: 'comma' } ),
+  paramsSerializer: (param: object | null) => qs.stringify(param, { arrayFormat: 'comma' }),
 }
 
 export const TOAST_TIMEOUT = 5000

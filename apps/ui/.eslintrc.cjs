@@ -347,7 +347,7 @@ module.exports = {
         asyncArrow: "always",
       },
     ],
-    "space-in-parens": ["error", "always"],
+    "space-in-parens": ["error", "never"],
     "space-infix-ops": "error",
     "spaced-comment": "error",
     "wrap-iife": ["error", "inside"],
