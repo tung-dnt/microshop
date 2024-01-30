@@ -47,6 +47,7 @@
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.16",
+    "cross-env": "^7.0.3",
     "eslint": "^8.53.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -65,8 +66,8 @@
     "postcss": "^8.4.32",
     "postcss-import": "^15.1.0",
     "postcss-nesting": "^12.0.2",
+    "rollup-plugin-copy": "^3.4.0",
     "tailwindcss": "^3.3.6",
-    "cross-env": "^7.0.3",
     "typescript": "^5.3.3",
     "vite": "^5.0.10"
   }
