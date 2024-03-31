@@ -7,6 +7,5 @@ export const useInitEffect = (callback: () => void) => {
     if (isMounted.current) return
     callback()
     isMounted.current = true
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 }

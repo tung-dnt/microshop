@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from '#/components/elements'
 
 type NavItemProps = {
   url: string;
@@ -12,7 +12,7 @@ export function NavItem({ url, name, isActive }: NavItemProps) {
 
   return (
     <li>
-      <Link to={url}  className={isActive ? activeStyle : inactiveStyle}>
+      <Link href={url}  className={isActive ? activeStyle : inactiveStyle}>
         {name}
       </Link>
     </li>

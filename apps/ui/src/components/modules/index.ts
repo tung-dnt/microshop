@@ -1,2 +1,2 @@
-export * from './LoadingModal'
 export * from './NavBar'
+export * from './Counter'

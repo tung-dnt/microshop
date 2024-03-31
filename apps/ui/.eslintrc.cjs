@@ -1,46 +1,27 @@
 module.exports = {
   env: {
-    browser: true,
-    es2020: true,
+    browser: false,
+    es2021: true,
+    node: true,
   },
-  extends: [
-    "airbnb",
-    "airbnb-typescript",
-    "airbnb/hooks",
-    "eslint:recommended",
-    "plugin:eslint-comments/recommended",
-    "plugin:import/typescript",
-    "plugin:jsdoc/recommended",
-    "plugin:promise/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-  ],
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: "latest",
-    project: "./tsconfig.json",
+    ecmaVersion: 12,
     sourceType: "module",
+    project: "./tsconfig.json",
   },
   plugins: [
-    "eslint-comments",
-    "import-newlines",
-    "jsdoc",
-    "unused-imports",
-    // "newline-destructuring",
-    "promise",
-    "simple-import-sort",
     "@typescript-eslint",
-    "react-refresh",
+    "unused-imports",
+    "import",
+    "simple-import-sort",
+    "import-newlines",
   ],
   rules: {
-    "@typescript-eslint/semi": 0,
-    "consistent-return": 0,
-    "react-refresh/only-export-components": 0,
     // ts eslint
     "eslint-comments/disable-enable-pair": 0,
     "@typescript-eslint/consistent-type-assertions": [
@@ -102,103 +83,61 @@ module.exports = {
         args: "none",
       },
     ],
-    "object-curly-spacing": "off",
-    "@typescript-eslint/object-curly-spacing": "error",
+    "object-curly-spacing": "error",
+    "@typescript-eslint/object-curly-spacing": 0,
     "@typescript-eslint/quotes": "off",
     "space-before-blocks": "off",
     "@typescript-eslint/space-before-blocks": "error",
     "@typescript-eslint/type-annotation-spacing": "error",
-    // Allow most functions to rely on type inference. If the function is exported, then `@typescript-eslint/explicit-module-boundary-types` will ensure it's typed.
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-use-before-define": [
+    "linebreak-style": ["error", "unix"],
+    "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        functions: false,
-        classes: true,
-        variables: true,
-        typedefs: true,
+        args: "after-used",
+        argsIgnorePattern: "^_",
+        ignoreRestSiblings: true,
       },
     ],
-    "@typescript-eslint/no-floating-promises": 0,
-    // eslint
-    "array-bracket-spacing": ["error", "never"],
-    "arrow-parens": ["error", "always"],
-    "arrow-spacing": [
+    "@typescript-eslint/no-explicit-any": [
       "error",
       {
-        after: true,
-        before: true,
-      },
-    ],
-    "brace-style": ["error", "1tbs", { allowSingleLine: false }],
-    "comma-dangle": [
-      "error",
-      {
-        arrays: "always-multiline",
-        objects: "always-multiline",
-        imports: "always-multiline",
-        exports: "always-multiline",
-        functions: "always-multiline",
-      },
-    ],
-    "comma-spacing": ["error", { before: false, after: true }],
-    "comma-style": ["error", "last"],
-    curly: ["error", "multi-or-nest", "consistent"],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "": "never",
-        js: "never",
-        jsx: "never",
-        ts: "never",
-        tsx: "never",
+        ignoreRestArgs: true,
       },
     ],
     "unused-imports/no-unused-imports": "error",
+    quotes: [
+      "error",
+      "single",
+      { avoidEscape: true, allowTemplateLiterals: true },
+    ],
+    semi: ["error", "never"],
+    "no-prototype-builtins": 0,
+    "no-unused-vars": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "import/order": 0,
+    "import/no-duplicates": "error",
+    "import/newline-after-import": "error",
+    "object-curly-spacing": ["error", "always"],
+    "no-mixed-spaces-and-tabs": 0,
+    curly: ["error", "multi-or-nest", "consistent"],
     "import-newlines/enforce": [
       "error",
       {
         items: 2,
-        // "max-len": 80, // doesn't work well with prettier
-        semi: true,
-        forceSingleLine: false, // true doesn't work well with prettier
+        semi: false,
+        forceSingleLine: false,
       },
     ],
-    "indent": [
+    indent: [
       "error",
       2,
       {
-        "ignoredNodes": ["TemplateLiteral *"],
-        "offsetTernaryExpressions": true, // does not work
-        "SwitchCase": 1
-      }
-    ],
-    "import/prefer-default-export": "off",
-    "jsdoc/require-jsdoc": "off",
-    "jsdoc/no-undefined-types": "off",
-    "jsx-quotes": ["error", "prefer-double"],
-    // "newline-destructuring/newline": [
-    //   "error",
-    //   {
-    //     "items": 3,
-    //     "itemsWithRest": 2,
-    //     "maxLength": 80,
-    //     "consistent": true,
-    //     "allowAllPropertiesOnSameLine": true
-    //   }
-    // ],
-    "no-console": "warn",
-    "no-extra-semi": "error",
-    "no-fallthrough": "error",
-    "no-mixed-spaces-and-tabs": "error",
-    "no-multiple-empty-lines": "error",
-    "no-plusplus": [
-      "error",
-      {
-        allowForLoopAfterthoughts: true,
+        ignoredNodes: ["TemplateLiteral *"],
+        offsetTernaryExpressions: true, // does not work
+        SwitchCase: 1,
       },
     ],
+    "array-bracket-spacing": ["error", "never"],
     "no-trailing-spaces": "error",
     "no-underscore-dangle": "off",
     "no-whitespace-before-property": "error",
@@ -281,41 +220,6 @@ module.exports = {
         next: "export",
       },
     ],
-    "prefer-const": "error",
-    quotes: ["error", "single"],
-    "quote-props": ["error", "as-needed"],
-    "react/forbid-prop-types": "off",
-    "react/jsx-boolean-value": "off",
-    "react/jsx-closing-bracket-location": [
-      1,
-      {
-        nonEmpty: "tag-aligned",
-        selfClosing: "tag-aligned",
-      },
-    ],
-    "react/jsx-filename-extension": "off",
-    "react/jsx-first-prop-new-line": ["error", "multiline"],
-    "react/jsx-key": "error",
-    "react/jsx-max-props-per-line": [
-      "error",
-      {
-        maximum: {
-          single: 3,
-          multi: 1,
-        },
-      },
-    ],
-    "react/jsx-no-useless-fragment": [
-      "error",
-      {
-        allowExpressions: true,
-      },
-    ],
-    "react/react-in-jsx-scope": "off",
-    "react/require-default-props": "off",
-    "react-hooks/exhaustive-deps": "warn",
-    "semi-spacing": ["error", { before: false, after: true }],
-    semi: ["error", "never"],
     "simple-import-sort/imports": [
       "error",
       {
@@ -337,8 +241,6 @@ module.exports = {
         ],
       },
     ],
-
-    "simple-import-sort/exports": "error",
     "space-before-function-paren": [
       "error",
       {
@@ -347,100 +249,5 @@ module.exports = {
         asyncArrow: "always",
       },
     ],
-    "space-in-parens": ["error", "never"],
-    "space-infix-ops": "error",
-    "spaced-comment": "error",
-    "wrap-iife": ["error", "inside"],
-
-    // anti-patterns
-    "no-var": "error",
-    "no-with": "error",
-    "no-multi-str": "error",
-    "no-caller": "error",
-    "no-implied-eval": "error",
-    "no-labels": "error",
-    "no-new-object": "error",
-    "no-octal-escape": "error",
-    "no-self-compare": "error",
-    "no-shadow-restricted-names": "error",
-    "no-cond-assign": "error",
-    "no-debugger": "error",
-    "no-dupe-keys": "error",
-    "no-duplicate-case": "error",
-    "no-empty-character-class": "error",
-    "no-unreachable": "error",
-    "no-unsafe-negation": "error",
-    radix: "error",
-    "valid-typeof": "error",
-    "no-implicit-globals": ["error"],
-    "no-param-reassign": ["error", { props: false }],
-    "no-unused-expressions": [
-      "error",
-      {
-        allowShortCircuit: true,
-        allowTernary: true,
-        allowTaggedTemplates: true,
-      },
-    ],
-    "no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^_",
-        destructuredArrayIgnorePattern: "^_",
-        vars: "all",
-        args: "none",
-      },
-    ],
-    "no-proto": "error",
-
-    // es2015 features
-    "require-yield": "error",
-    "template-curly-spacing": ["error", "never"],
-
-    // Too restrictive, writing ugly code to defend against a very unlikely scenario: https://eslint.org/docs/rules/no-prototype-builtins
-    "no-prototype-builtins": "off",
-    // Too restrictive: https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
-    "react/destructuring-assignment": "off",
-    // Use function hoisting to improve code readability
-    "no-use-before-define": [
-      "error",
-      { functions: false, classes: true, variables: true },
-    ],
-    // It's not accurate in the monorepo style
-    "import/no-extraneous-dependencies": "off",
-    "react/jsx-props-no-spreading": 0
-  },
-  overrides: [
-    {
-      files: ["*.js", "*.ts", "*.jsx", "*.tsx"],
-      rules: {
-        // Allow CJS until ESM support improves
-        "@typescript-eslint/naming-convention": "off",
-        "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/no-unsafe-assignment": "off",
-        "@typescript-eslint/no-unsafe-call": "off",
-        "@typescript-eslint/no-unsafe-member-access": "off",
-        "@typescript-eslint/no-unsafe-return": "off",
-        "@typescript-eslint/no-unsafe-argument": "off",
-        "@typescript-eslint/require-await": "off"
-      },
-    },
-    {
-      files: [".eslintrc.json"],
-      env: {
-        node: true,
-      },
-    },
-  ],
-  settings: {
-    react: {
-      version: "detect",
-    },
-    "import/resolver": {
-      typescript: {
-        alwaysTryTypes: true,
-        project: "./tsconfig.json",
-      },
-    },
   },
 };

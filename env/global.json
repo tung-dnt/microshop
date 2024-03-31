@@ -3,7 +3,7 @@
     "serializeEndpoint": "http://user:5000/api/users/serialize"
   },
   "keycloak": {
-    "publicKey": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2Fsa+ivG7lGIk0iH2cGJVgGjxzetZ/ZqjiTMX0YZt+Y3pto1mWvfPEyAPOklQ0rHAkag4YKnwdoDKCX/4vysyeCGLvwWJBG/7FfsrIfy1YmD+XC19EueF2R5ArSm8i+YnCgUb8s94q2irg1NA7YSIaEuipsz1A8seHU4cOZCgqMVPxUyvWrc98BtzRFsiG7+xW4LBkUR0A8JhXKqW5Hn1DZtUpCrsqexaqp+Wu6M1cpGh3welaIjVbfL3h8VF3uizYfzIfanSyBTQNAiHZP9BmLr9nbnVpoPOLeiExZh7cOS9KIseGsc2vDjtiOlY60S4iuRnzgbum7JYSZZcvgynQIDAQAB"
+    "publicKey": ""
   },
   "provinceApi": "https://provinces.open-api.vn/api"
 }

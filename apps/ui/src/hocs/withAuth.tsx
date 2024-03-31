@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Error } from '@/components/elements'
-import { useAuth, useInitEffect } from '@/hooks'
+import { Error } from '#/components/elements'
+import { useAuth, useInitEffect } from '#/hooks'
 
 /**
  * Generates a higher-order component (HOC) that adds authentication logic to a given component.

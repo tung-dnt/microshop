@@ -1,4 +1,4 @@
-import { NavBar } from '@/components/modules'
+import { NavBar } from '#/components/modules'
 
 export default function LayoutFrame({ children }: React.PropsWithChildren) {
   return (

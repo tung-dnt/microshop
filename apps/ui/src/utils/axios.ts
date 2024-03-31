@@ -1,15 +1,11 @@
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 
-import { toast } from '@/components/elements'
 import {
   AXIOS_CONFIG,
   REQUEST_CONFIG,
-  TOAST_TIMEOUT,
-} from '@/constants/config'
-import { NETWORK_ERROR } from '@/constants/errors'
-
-import { keycloak } from './keycloak'
+} from '#/constants/config'
+import { NETWORK_ERROR } from '#/constants/errors'
 
 export type Request<T> = {
   data?: T | null;
@@ -27,12 +23,8 @@ const interceptError = async <T>(error: T): Promise<AxiosResponse> => {
     const isNetworkError = error.code === NETWORK_ERROR
 
     if (isServerError || isNetworkError) {
-      toast({
-        status: 'error',
-        title: 'Oops! Something went wrong...',
-        duration: TOAST_TIMEOUT,
-        isClosable: true,
-      })
+      // Show toast
+      console.error(error)
     }
   }
 
@@ -53,7 +45,7 @@ export default async function request<T>({
     ...AXIOS_CONFIG,
     headers: {
       ...AXIOS_CONFIG.headers,
-      Authorization: `Bearer ${keycloak?.token}`,
+      Authorization: `Bearer ahihi`,
     },
     ...options,
   })

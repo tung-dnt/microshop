@@ -1,17 +1,16 @@
 import type { AxiosRequestConfig } from 'axios'
-import type { KeycloakConfig } from 'keycloak-js'
 import qs from 'qs'
 
-const MOCK_URL = `${window.location.protocol}//${window.location.host}/mocks`
-const IS_MOCK = import.meta.env.VITE_MOCK === 'true'
-const API_KEY = import.meta.env.VITE_API_KEY
+const MOCK_URL = `http://localhost:3000/mocks`
+const IS_MOCK = (import.meta.env.VITE_MOCK ?? process.env.VITE_MOCK) === 'true'
+const API_KEY = (import.meta.env.VITE_API_KEY ?? process.env.VITE_API_KEY)
 const CONTENT_TYPE = 'Content-Type'
 
 export const REQUEST_CONFIG = {
   isMock: IS_MOCK,
   timeout: 10000,
-  baseURL: IS_MOCK ? MOCK_URL : import.meta.env.VITE_API_URL,
-  ...(API_KEY.length && {
+  baseURL: IS_MOCK ? MOCK_URL : (import.meta.env.VITE_API_URL ?? process.env.VITE_API_URL),
+  ...(API_KEY?.length && {
     apiKey: API_KEY,
   }),
 }
@@ -28,9 +27,3 @@ export const AXIOS_CONFIG: AxiosRequestConfig = {
 }
 
 export const TOAST_TIMEOUT = 5000
-
-export const KEYCLOAK_CONFIG: KeycloakConfig = {
-  url: import.meta.env.VITE_AUTH_URL,
-  realm: import.meta.env.VITE_AUTH_REALM,
-  clientId: import.meta.env.VITE_AUTH_CLIENT_ID,
-}

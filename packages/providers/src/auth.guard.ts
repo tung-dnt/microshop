@@ -46,7 +46,6 @@ export class AuthGuard implements CanActivate {
 
     if (!user || !user.permissions) return false
     request.user = user
-    console.log({ user })
 
     return (
       this.matchAuthor({

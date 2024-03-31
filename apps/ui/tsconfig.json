@@ -6,7 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    "types": ["vite/client"],
+    "types": ["vite/client", "./src/types/font-awesome.d.ts"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -23,13 +23,15 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "#/*": ["./src/*"]
     }
   },
   "include": [
     "src/**/*",
     "vite.config.ts",
-    "src/test/**/*"
+    "src/test/**/*",
+    "src/renderer",
+    "pages"
   ],
 
   "references": [{ "path": "./tsconfig.node.json" }]

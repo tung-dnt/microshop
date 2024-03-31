@@ -1,7 +1,7 @@
 import { atom, useAtom } from 'jotai'
 
-import type { Request } from '@/utils/axios'
-import request from '@/utils/axios'
+import type { Request } from '#/utils/axios'
+import request from '#/utils/axios'
 
 const atomIsLoading = atom(false)
 
