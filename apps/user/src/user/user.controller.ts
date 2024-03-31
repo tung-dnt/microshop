@@ -24,6 +24,8 @@ export class UserController {
   @Get('profile')
   @Secured()
   async getUserProfile(@User() user: UserProfile) {
+    console.log('HEHEasdfasdsadfasd')
+
     return user
   }
 
