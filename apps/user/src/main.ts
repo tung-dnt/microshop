@@ -20,7 +20,7 @@ async function bootstrap() {
     new ValidationPipe({
       whitelist: true,
       transform: true,
-    })
+    }),
   )
   app.enableVersioning({ type: VersioningType.URI })
 

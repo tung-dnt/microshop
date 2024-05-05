@@ -14,9 +14,9 @@ export const onRenderClient: OnRenderClientAsync = async (pageContext): ReturnTy
   // to support SPA
   if (!Page) throw new Error('My onRenderClient() hook expects pageContext.Page to be defined')
 
-  const container = document.getElementById('react-root')
+  const container = document.getElementById('root')
 
-  if (!container) throw new Error('DOM element #react-root not found')
+  if (!container) throw new Error('DOM element #root not found')
 
   const page = (
     <App pageContext={pageContext}>

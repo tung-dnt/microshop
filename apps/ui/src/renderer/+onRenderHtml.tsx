@@ -34,7 +34,7 @@ export const onRenderHtml: OnRenderHtmlAsync = async (pageContext): ReturnType<O
         <title>${title}</title>
       </head>
       <body>
-        <div id="react-root">${dangerouslySkipEscape(pageHtml)}</div>
+        <div id="root">${dangerouslySkipEscape(pageHtml)}</div>
       </body>
     </html>`
 
