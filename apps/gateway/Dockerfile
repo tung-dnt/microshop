@@ -1,9 +1,8 @@
+
 FROM node:18-alpine as base
 
 # adding apk deps to avoid node-gyp related errors
-RUN apk add -f --update --no-cache --virtual .gyp nano bash libc6-compat python3 make g++ \
-      && npm install --global turbo \
-      && apk del .gyp
+RUN apk add -f --update --no-cache --virtual .gyp nano bash libc6-compat python3 make g++       && npm install --global turbo       && apk del .gyp
 
 RUN npm i --location=global --save-exact pnpm@8.6.11
 
@@ -13,7 +12,9 @@ FROM base as pruned
 
 WORKDIR /app
 COPY . .
-RUN turbo prune --scope=user --docker
+RUN turbo prune --scope=gateway --docker
+
+RUN rm -rf out/full/apps/gateway/node_modules
 
 ###################################################################
 
@@ -31,8 +32,7 @@ FROM node:18-alpine as run
 WORKDIR app
 COPY --from=build /app/build .
 RUN npm i --location=global --save-exact pnpm@8.6.11
-
 COPY ./scripts ./scripts
 RUN chmod -R 744 scripts
 
-CMD pnpm --filter user start:dev
+CMD pnpm --filter gateway start:dev

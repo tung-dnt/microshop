@@ -1,6 +1,6 @@
 #!/bin/sh
-read -p "Enter existing workspace name : " service
-echo $service >> scripts/microservices.txt
+read -p "Enter existing workspace name: " service
+read -p "Choose DB driver ('pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso'): " driver
 
 cd packages/database
 
@@ -13,7 +13,7 @@ echo "import type { Config } from 'drizzle-kit'
 export default {
   schema: '../../packages/database/schema/${service}.ts',
   out: '../../packages/database/migrations/${service}', // migrations folder
-  driver: 'pg', // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso',
+  driver: '${driver}', // 'pg' | 'mysql2' | 'better-sqlite' | 'libsql' | 'turso',
   strict: true,
   verbose: true,
   dbCredentials: {

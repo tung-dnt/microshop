@@ -1,32 +1,32 @@
 version: '3'
 name: microshop
 services:
-  gateway:
-    # The :watch image restarts the service automatically when the configuration files change.
-    # Do not use this image in production, it's meant to speed up your testing and development.
-    image: devopsfaith/krakend:watch
-    container_name: gateway
-    volumes:
-      - ./config/krakend:/etc/krakend
-    ports:
-      - '1234:1234'
-      - '9008:8080'
-      - '8090:8090'
-    command: ['run', '-d', '-c', '/etc/krakend/gateway.json']
-    healthcheck:
-      test: ['CMD', 'wget', '-f', 'http://localhost:8080/__health']
-      interval: 30s
-      timeout: 10s
-      retries: 5
+  # gateway:
+  #   # The :watch image restarts the service automatically when the configuration files change.
+  #   # Do not use this image in production, it's meant to speed up your testing and development.
+  #   image: devopsfaith/krakend:watch
+  #   container_name: gateway
+  #   volumes:
+  #     - ./config/krakend:/etc/krakend
+  #   ports:
+  #     - '1234:1234'
+  #     - '9008:8080'
+  #     - '8090:8090'
+  #   command: ['run', '-d', '-c', '/etc/krakend/gateway.json']
+  #   healthcheck:
+  #     test: ['CMD', 'wget', '-f', 'http://localhost:8080/__health']
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 5
 
-  nginx:
-    container_name: nginx
-    image: nginx:1.17-alpine
-    volumes:
-      - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
-    ports:
-      - '80:80'
-      - '443:443'
+  # nginx:
+  #   container_name: nginx
+  #   image: nginx:1.17-alpine
+  #   volumes:
+  #     - ./config/nginx/default.conf:/etc/nginx/conf.d/default.conf
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
 
   web:
     container_name: web

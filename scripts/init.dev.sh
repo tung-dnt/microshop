@@ -1,14 +1,17 @@
 #!/bin/sh
 compose_file="docker-compose.dev.yml"
 
-echo "🤖 Getting microservice names from file..."
-while IFS= read -r line; do
-  index=0
-  services[$index]=$line
-  index=$((index + 1))
+echo "🤖 Getting microservice names..."
 
-  echo "Service: ${line}"
-done < scripts/microservices.txt
+for f in "./apps"/*; do
+  index=0
+  if [ -d "$f" ]; then
+    # Append the folder name to the variable
+    services[$index]=$(basename "$f")$
+    index=$((index + 1))
+  fi
+done
+
 echo "✅  All services retrieved!"
 
 ##################################################################################
