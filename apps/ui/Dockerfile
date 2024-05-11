@@ -28,11 +28,11 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 FROM node:18-alpine as run
 
-WORKDIR app
+WORKDIR /app
 COPY --from=build /app/build .
 RUN npm i --location=global --save-exact pnpm@8.6.11
 
 COPY ./scripts ./scripts
 RUN chmod -R 744 scripts
 
-CMD pnpm --filter ui dev
+CMD NODE_ENV=development pnpm --filter ui start

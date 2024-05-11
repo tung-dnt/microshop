@@ -1,7 +1,7 @@
 # Microshop
 
 A microservice e-commerce system with robust functionality:
-    
+
     - Permission-based authorization
     - Revenue monthly report
     - User management
@@ -47,14 +47,14 @@ pnpm start:dev
 ```sh
 pnpm create:service
 ```
-2. Add service configuration to `docker-compose.dev.yml` ( _image name + container name must be similar to service's workspace name in `apps` directory_ )
+2. Add service configuration to `docker-compose.yml` ( _image name + container name must be similar to service's workspace name in `apps` directory_ )
 
 ## To create new microservice DB
-1. Generate DB service workspace, the DB name **MUST BE** similar to microservice name 
+1. Generate DB service workspace, the DB name **MUST BE** similar to microservice name
 ```sh
 pnpm create:db
 ```
-2. Add DB image configuration to `docker-compose.dev.yml` (_image name + container convention: `<service_name>_db`_)
+2. Add DB image configuration to `docker-compose.yml` (_image name + container convention: `<service_name>_db`_)
 
 ## To remove microservice
 ```sh

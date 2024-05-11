@@ -47,19 +47,6 @@ module.exports = {
         after: true,
       },
     ],
-    "@typescript-eslint/member-delimiter-style": [
-      "error",
-      {
-        multiline: {
-          delimiter: "semi",
-          requireLast: true,
-        },
-        singleline: {
-          delimiter: "semi",
-          requireLast: false,
-        },
-      },
-    ],
     "@typescript-eslint/naming-convention": [
       "error",
       {
@@ -124,15 +111,7 @@ module.exports = {
         forceSingleLine: false,
       },
     ],
-    "indent": [
-      "error",
-      2,
-      {
-        "ignoredNodes": ["TemplateLiteral *"],
-        "offsetTernaryExpressions": true, // does not work
-        "SwitchCase": 1
-      }
-    ],
+    "indent": ["error", 2],
     "array-bracket-spacing": ["error", "never"],
     "no-trailing-spaces": "error",
     "no-underscore-dangle": "off",

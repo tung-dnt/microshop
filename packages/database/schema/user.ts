@@ -1,8 +1,6 @@
 import { relations, sql } from 'drizzle-orm'
 import {
-  bigint,
   bigserial,
-  char,
   integer,
   pgTable,
   primaryKey,
@@ -10,25 +8,24 @@ import {
   timestamp
 } from 'drizzle-orm/pg-core'
 
-export const users = pgTable('users', {
+export const user = pgTable('users', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
-  keycloakId: char('keycloak_id', { length: 36 }).notNull().unique(),
   firstName: text('firstname').notNull(),
   lastName: text('lastname').notNull(),
   email: text('email').notNull().unique(),
   username: text('username').notNull().unique(),
-  createdAt: timestamp('created_at', { mode: 'date' }).notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: timestamp('updated_at', { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const userRelations = relations(users, ({ many }) => ({
-  addresses: many(userAddresses, { relationName: 'addresses' }),
-  roles: many(usersOnRoles),
+export const userRelation = relations(user, ({ many }) => ({
+  addresses: many(userAddress),
+  usersOnRoles: many(usersOnRole),
 }))
 
-export const userAddresses = pgTable('user_addresses', {
+export const userAddress = pgTable('user_addresses', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
-  userId: bigint('user_id', { mode: 'number' }).notNull().references(() => users.id, {
+  userId: bigserial('user_id', { mode: 'number' }).notNull().references(() => user.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade'
   }),
@@ -41,50 +38,45 @@ export const userAddresses = pgTable('user_addresses', {
   detail: text('detail'),
 })
 
-export const userAddressesRelations = relations(userAddresses, ({ one }) => ({
-  user: one(users, {
-    fields: [userAddresses.userId],
-    references: [users.id],
-    relationName: 'users',
-  }),
+export const userAddressRelation = relations(userAddress, ({ one }) => ({
+  user: one(user),
 }))
 
-export const roles = pgTable('roles', {
+export const role = pgTable('roles', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
   name: text('name').notNull().unique(),
   description: text('description'),
   status: integer('status').notNull().default(1),
-  createdBy: bigint('created_by', { mode: 'number' }).notNull(),
-  createdAt: timestamp('created_at', { mode: 'date' }).notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: timestamp('updated_at', { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
+  createdBy: bigserial('created_by', { mode: 'number' }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const rolesRelations = relations(roles, ({ many }) => ({
-  users: many(usersOnRoles, { relationName: 'users' }),
-  permissions: many(rolesOnPermissions),
+export const rolesRelation = relations(role, ({ many }) => ({
+  usersOnRoles: many(usersOnRole),
+  roleOnPermissions: many(roleOnPermission),
 }))
 
-
-export const permissions = pgTable('permissions', {
+export const permission = pgTable('permissions', {
   id: bigserial('id', { mode: 'number' }).primaryKey().notNull(),
   name: text('name').notNull().unique(),
   description: text('description'),
   status: integer('status').notNull().default(1),
-  createdBy: bigint('created_by', { mode: 'number' }).notNull(),
-  createdAt: timestamp('created_at', { mode: 'date' }).notNull().default(sql`CURRENT_TIMESTAMP`),
-  updatedAt: timestamp('updated_at', { mode: 'date' }).default(sql`CURRENT_TIMESTAMP`),
+  createdBy: bigserial('created_by', { mode: 'number' }).notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
 })
 
-export const permissionsRelations = relations(permissions, ({ many }) => ({
-  roles: many(rolesOnPermissions),
+export const permissionsRelation = relations(permission, ({ many }) => ({
+  roles: many(roleOnPermission),
 }))
 
-export const usersOnRoles = pgTable('users_on_roles', {
-  userId: bigint('user_id', { mode: 'number' }).notNull().references(() => users.id, {
+export const usersOnRole = pgTable('users_on_roles', {
+  userId: bigserial('user_id', { mode: 'number' }).notNull().references(() => user.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade'
   }),
-  roleId: bigint('role_id', { mode: 'number' }).notNull().references(() => roles.id, {
+  roleId: bigserial('role_id', { mode: 'number' }).notNull().references(() => role.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade'
   })
@@ -92,15 +84,25 @@ export const usersOnRoles = pgTable('users_on_roles', {
   pk: primaryKey({ columns: [t.userId, t.roleId] }),
 }))
 
-export const rolesOnPermissions = pgTable('roles_on_permissions', {
-  roleId: bigint('role_id', { mode: 'number' }).notNull().references(() => roles.id, {
+export const userOnRoleRelation = relations(usersOnRole, ({ one }) => ({
+  user: one(user),
+  role: one(role),
+}))
+
+export const roleOnPermission = pgTable('roles_on_permissions', {
+  roleId: bigserial('role_id', { mode: 'number' }).notNull().references(() => role.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   }),
-  permissionId: bigint('permission_id', { mode: 'number' }).notNull().references(() => permissions.id, {
+  permissionId: bigserial('permission_id', { mode: 'number' }).notNull().references(() => permission.id, {
     onDelete: 'cascade',
     onUpdate: 'cascade',
   })
 }, (t) => ({
   pk: primaryKey({ columns: [t.permissionId, t.roleId] }),
+}))
+
+export const roleOnPermissionRelation = relations(roleOnPermission, ({ one }) => ({
+  role: one(role),
+  permission: one(permission),
 }))

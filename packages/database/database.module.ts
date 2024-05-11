@@ -1,5 +1,5 @@
 import type { DynamicModule } from '@nestjs/common'
-import { Global,Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { DB_PROVIDER_TOKEN } from '@shared/constants'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import { Client } from 'pg'
@@ -8,11 +8,11 @@ import { Client } from 'pg'
 @Module({})
 export class DatabaseModule {
   static forRoot(options: {
-    user: string;
-    host: string;
-    database: string;
-    password: string;
-    port: number;
+    user: string
+    host: string
+    database: string
+    password: string
+    port: number
   }): DynamicModule {
     const DatabaseProvider = {
       provide: DB_PROVIDER_TOKEN,
