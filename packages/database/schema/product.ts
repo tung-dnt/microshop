@@ -22,8 +22,7 @@ export const product = pgTable('products', {
 }, (table) => ({
   nameIdx: index('product_name_idx').on(table.name),
 }))
-
-export const productRelation = relations(product, ({ one }) => ({
+relations(product, ({ one }) => ({
   detail: one(product)
 }))
 
@@ -44,8 +43,7 @@ export const productDetail = pgTable('product_details', {
   updatedAt: timestamp('updated_at', { withTimezone: true }),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
 })
-
-export const productDetailRelation = relations(productDetail, ({ many }) => ({
+relations(productDetail, ({ many }) => ({
   detailOnColor: many(productDetailOnColor),
   detailOnMaterial: many(productDetailOnMaterial),
   detailOnSize: many(productDetailOnSize),
@@ -57,8 +55,7 @@ export const productCategory = pgTable('product_categories', {
   name: text('name').unique().notNull(),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
 })
-
-export const productCategoryRelation = relations(productCategory, ({ many }) => ({
+relations(productCategory, ({ many }) => ({
   detailOnCategory: many(productDetailOnCategory)
 }))
 
@@ -67,8 +64,7 @@ export const productColor = pgTable('product_colors', {
   hex: text('hex').unique().notNull(),
   name: text('name').unique().notNull(),
 })
-
-export const productColorRelation = relations(productColor, ({ many }) => ({
+relations(productColor, ({ many }) => ({
   detailOnColor: many(productDetailOnColor)
 }))
 
@@ -77,8 +73,7 @@ export const productMaterial = pgTable('product_materials', {
   name: text('name').unique().notNull(),
   description: text('description'),
 })
-
-export const productMaterialRelation = relations(productMaterial, ({ many }) => ({
+relations(productMaterial, ({ many }) => ({
   detailOnMaterial: many(productDetailOnMaterial)
 }))
 
@@ -87,6 +82,9 @@ export const productSize = pgTable('product_sizes', {
   size: integer('size').notNull(),
   description: text('description'),
 })
+relations(productSize, ({ many }) => ({
+  detailOnSize: many(productDetailOnSize)
+}))
 
 export const productDetailOnCategory = pgTable('product_detail_on_categories', {
   categoryId: bigserial('category_id', { mode: 'number' }).notNull().references(() => productCategory.id, {
@@ -100,8 +98,7 @@ export const productDetailOnCategory = pgTable('product_detail_on_categories', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.categoryId, t.productDetailId] }),
 }))
-
-export const productDetailOnCategoryRelation = relations(productDetailOnCategory, ({ one }) => ({
+relations(productDetailOnCategory, ({ one }) => ({
   productDetail: one(productDetail),
   category: one(productCategory),
 }))
@@ -118,8 +115,7 @@ export const productDetailOnColor = pgTable('product_detail_on_color', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.productDetailId, t.productColorId] }),
 }))
-
-export const productDetailOnColorRelation = relations(productDetailOnColor, ({ one }) => ({
+relations(productDetailOnColor, ({ one }) => ({
   productDetail: one(productDetail),
   color: one(productColor),
 }))
@@ -136,8 +132,7 @@ export const productDetailOnSize = pgTable('product_detail_on_sizes', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.productDetailId, t.sizeId] }),
 }))
-
-export const productDetailOnSizeRelation = relations(productDetailOnSize, ({ one }) => ({
+relations(productDetailOnSize, ({ one }) => ({
   productDetail: one(productDetail),
   size: one(productSize),
 }))
@@ -154,8 +149,7 @@ export const productDetailOnMaterial = pgTable('product_detail_on_materials', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.productDetailId, t.materialId] }),
 }))
-
-export const productDetailOnMaterialRelation = relations(productDetailOnMaterial, ({ one }) => ({
+relations(productDetailOnMaterial, ({ one }) => ({
   productDetail: one(productDetail),
   material: one(productMaterial),
 }))

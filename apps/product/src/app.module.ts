@@ -6,6 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { DB_PROVIDER_TOKEN } from '@shared/constants'
 import { DatabaseModule } from '@shared/database'
 import ProductDbConfig from '@shared/database/configs/product.config'
+import * as ProductDbSchema from '@shared/database/schema/product'
 import { buildSchema } from 'drizzle-graphql'
 import type { NodePgDatabase } from 'drizzle-orm/node-postgres'
 
@@ -16,12 +17,10 @@ import { AppService } from './app.service'
 @Module({
   imports: [
     ProductModule,
-    DatabaseModule.forRoot(ProductDbConfig.dbCredentials),
+    DatabaseModule.forRoot(ProductDbConfig.dbCredentials, ProductDbSchema),
     GraphQLModule.forRootAsync<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
       useFactory: async (dbClient: NodePgDatabase) => {
-        console.log({ dbClient })
-
         const { schema } = buildSchema(dbClient)
 
         const server = new ApolloServer({ schema })

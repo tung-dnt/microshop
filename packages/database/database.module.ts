@@ -7,13 +7,13 @@ import { Client } from 'pg'
 @Global()
 @Module({})
 export class DatabaseModule {
-  static forRoot(options: {
+  static forRoot<TSchema extends Record<string, unknown>>(options: {
     user: string
     host: string
     database: string
     password: string
     port: number
-  }): DynamicModule {
+  }, schema?: TSchema): DynamicModule {
     const DatabaseProvider = {
       provide: DB_PROVIDER_TOKEN,
       useFactory: async () => {
@@ -21,14 +21,14 @@ export class DatabaseModule {
 
         await client.connect()
 
-        return drizzle(client)
+        return drizzle(client, { schema })
       },
     }
 
     return {
       module: DatabaseModule,
       providers: [DatabaseProvider],
-      exports: [DatabaseProvider, DB_PROVIDER_TOKEN],
+      exports: [DatabaseProvider],
     }
   }
 }

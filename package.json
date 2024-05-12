@@ -12,9 +12,9 @@
     "link-configs": "node packages/link-config/link-configs.js"
   },
   "devDependencies": {
-    "eslint": "^8.47.0",
+    "eslint": "^9.2.0",
     "tsconfig": "workspace:*",
-    "turbo": "latest"
+    "turbo": "^1.13.3"
   },
   "packageManager": "pnpm@8.6.11"
 }

@@ -17,8 +17,7 @@ export const user = pgTable('users', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
 })
-
-export const userRelation = relations(user, ({ many }) => ({
+relations(user, ({ many }) => ({
   addresses: many(userAddress),
   usersOnRoles: many(usersOnRole),
 }))
@@ -37,8 +36,7 @@ export const userAddress = pgTable('user_addresses', {
   wardName: text('ward_name').notNull(),
   detail: text('detail'),
 })
-
-export const userAddressRelation = relations(userAddress, ({ one }) => ({
+relations(userAddress, ({ one }) => ({
   user: one(user),
 }))
 
@@ -51,8 +49,7 @@ export const role = pgTable('roles', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
 })
-
-export const rolesRelation = relations(role, ({ many }) => ({
+relations(role, ({ many }) => ({
   usersOnRoles: many(usersOnRole),
   roleOnPermissions: many(roleOnPermission),
 }))
@@ -66,8 +63,7 @@ export const permission = pgTable('permissions', {
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
   updatedAt: timestamp('updated_at', { withTimezone: true }).default(sql`CURRENT_TIMESTAMP`),
 })
-
-export const permissionsRelation = relations(permission, ({ many }) => ({
+relations(permission, ({ many }) => ({
   roles: many(roleOnPermission),
 }))
 
@@ -83,8 +79,7 @@ export const usersOnRole = pgTable('users_on_roles', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.userId, t.roleId] }),
 }))
-
-export const userOnRoleRelation = relations(usersOnRole, ({ one }) => ({
+relations(usersOnRole, ({ one }) => ({
   user: one(user),
   role: one(role),
 }))
@@ -101,8 +96,7 @@ export const roleOnPermission = pgTable('roles_on_permissions', {
 }, (t) => ({
   pk: primaryKey({ columns: [t.permissionId, t.roleId] }),
 }))
-
-export const roleOnPermissionRelation = relations(roleOnPermission, ({ one }) => ({
+relations(roleOnPermission, ({ one }) => ({
   role: one(role),
   permission: one(permission),
 }))
