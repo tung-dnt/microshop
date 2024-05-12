@@ -28,7 +28,7 @@ export class DatabaseModule {
     return {
       module: DatabaseModule,
       providers: [DatabaseProvider],
-      exports: [DatabaseProvider],
+      exports: [DatabaseProvider, DB_PROVIDER_TOKEN],
     }
   }
 }

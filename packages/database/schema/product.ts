@@ -36,7 +36,7 @@ export const productDetail = pgTable('product_details', {
   description: text('description').notNull(),
   quantity: integer('quantity').notNull().default(1),
   baseQuantity: integer('base_quantity').notNull().default(1),
-  thumbnails: text('thumbnails').array().default([]),
+  thumbnails: text('thumbnails').array(),
   price: numeric('price').notNull(),
   basePrice: numeric('price').notNull(),
   lastBoughtAt: timestamp('last_bought_at', { withTimezone: true }),

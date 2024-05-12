@@ -45,18 +45,13 @@ pnpm start:dev
 ## To create new microservice
 1. Generate microservice source code
 ```sh
-pnpm create:service
+pnpm create-service
 ```
 2. Add service configuration to `docker-compose.yml` ( _image name + container name must be similar to service's workspace name in `apps` directory_ )
 
 ## To create new microservice DB
 1. Generate DB service workspace, the DB name **MUST BE** similar to microservice name
 ```sh
-pnpm create:db
+pnpm create-db
 ```
 2. Add DB image configuration to `docker-compose.yml` (_image name + container convention: `<service_name>_db`_)
-
-## To remove microservice
-```sh
-pnpm remove:service
-```

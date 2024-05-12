@@ -20,7 +20,7 @@ export default {
     host: '${service}_db',
     user: 'root',
     password: 'password',
-    database: 'postgres',
+    database: '${service}',
     port: 5432,
   },
 } satisfies Config" > configs/${service}.config.ts

@@ -1,6 +1,61 @@
-version: '3'
 name: microshop
 services:
+  web:
+    container_name: web
+    build:
+      context: ./
+      dockerfile: apps/ui/Dockerfile
+    develop:
+      watch:
+        - path: ./apps/ui
+          action: sync
+          target: /app/apps/ui
+          ignore:
+            - node_modules/
+    ports:
+      - '6969:3000'
+
+  gateway:
+    container_name: gateway
+    build:
+      context: ./
+      dockerfile: apps/gateway/Dockerfile
+    develop:
+      watch:
+        - path: ./apps/gateway
+          action: sync
+          target: /app/apps/gateway
+          ignore:
+            - node_modules/
+    ports:
+      - '80:3000'
+
+  product:
+    container_name: product
+    build:
+      context: .
+      dockerfile: apps/product/Dockerfile
+    develop:
+      watch:
+        - path: ./apps/product
+          action: sync
+          target: /app/apps/product
+          ignore:
+            - node_modules/
+    depends_on:
+      - product_db
+
+  product_db:
+    container_name: product_db
+    image: postgres:15.1-alpine
+    volumes:
+      - product_data:/var/lib/postgres/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: password
+    restart: unless-stopped
+    ports:
+      - '5433:5432'
   # gateway:
   #   # The :watch image restarts the service automatically when the configuration files change.
   #   # Do not use this image in production, it's meant to speed up your testing and development.
@@ -59,75 +114,6 @@ services:
   #         path: ./
   #   depends_on:
   #     - user_db
-
-  web:
-    container_name: web
-    build:
-      context: ./
-      dockerfile: apps/ui/Dockerfile
-    develop:
-      watch:
-        - path: ./apps/ui
-          action: sync
-          target: /app/apps/ui
-          ignore:
-            - node_modules/
-        - path: ./apps/ui/node_modules
-          action: rebuild
-        - path: ./packages
-          action: rebuild
-    ports:
-      - '6969:3000'
-
-  gateway:
-    container_name: gateway
-    build:
-      context: ./
-      dockerfile: apps/gateway/Dockerfile
-    develop:
-      watch:
-        - path: ./apps/gateway
-          action: sync
-          target: /app/apps/gateway
-          ignore:
-            - node_modules/
-        - path: ./apps/gateway/node_modules
-          action: rebuild
-        - path: ./packages
-          action: rebuild
-    ports:
-      - '80:3000'
-
-  product:
-    container_name: product
-    build:
-      context: .
-      dockerfile: apps/gateway/Dockerfile
-    develop:
-      watch:
-        - path: ./apps/product
-          action: sync
-          target: /app/apps/product
-          ignore:
-            - node_modules/
-        - path: ./apps/product/node_modules
-          action: rebuild
-        - path: ./packages
-          action: rebuild
-    depends_on:
-      - product_db
-
-  product_db:
-    container_name: product_db
-    image: postgres:15.1-alpine
-    volumes:
-      - product_data:/var/lib/postgres/data
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
-    restart: unless-stopped
-    ports:
-      - '5433:5432'
 
 volumes:
   product_data:
