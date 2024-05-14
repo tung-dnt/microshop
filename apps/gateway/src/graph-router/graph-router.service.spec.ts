@@ -1,20 +1,18 @@
-import type { TestingModule } from '@nestjs/testing'
-import { Test } from '@nestjs/testing'
-
-import { GraphRouterService } from './graph-router.service'
+import { Test, TestingModule } from '@nestjs/testing';
+import { GraphRouterService } from './graph-router.service';
 
 describe('GraphRouterService', () => {
-  let service: GraphRouterService
+  let service: GraphRouterService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [GraphRouterService],
-    }).compile()
+    }).compile();
 
-    service = module.get<GraphRouterService>(GraphRouterService)
-  })
+    service = module.get<GraphRouterService>(GraphRouterService);
+  });
 
   it('should be defined', () => {
-    expect(service).toBeDefined()
-  })
-})
+    expect(service).toBeDefined();
+  });
+});

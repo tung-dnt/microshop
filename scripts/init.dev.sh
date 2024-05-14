@@ -9,6 +9,7 @@ echo "✅  All dependencies installed!"
 
 echo "🤖 Starting all services..."
 pnpm build || exit
+docker-compose -f $compose_file build --parallel || (exit && echo "🧨 Can not build services")
 docker-compose -f $compose_file up -d || (exit && echo "🧨 Can not start services")
 echo "✅  Project started!"
 

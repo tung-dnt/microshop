@@ -41,6 +41,9 @@ importers:
       '@nestjs/platform-express':
         specifier: ^10.3.8
         version: 10.3.8(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)
+      '@shared/config':
+        specifier: workspace:^
+        version: link:../../packages/config
       '@shared/constants':
         specifier: workspace:^
         version: link:../../packages/constants
@@ -183,15 +186,24 @@ importers:
       '@nestjs/graphql':
         specifier: ^12.1.1
         version: 12.1.1(@apollo/subgraph@2.7.7)(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)(class-transformer@0.5.1)(class-validator@0.14.1)(graphql@16.8.1)(reflect-metadata@0.2.2)
+      '@nestjs/mapped-types':
+        specifier: '*'
+        version: 2.0.5(@nestjs/common@10.3.8)(class-transformer@0.5.1)(class-validator@0.14.1)(reflect-metadata@0.2.2)
       '@nestjs/platform-express':
         specifier: ^10.3.8
         version: 10.3.8(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)
+      '@shared/config':
+        specifier: workspace:^
+        version: link:../../packages/config
       '@shared/constants':
         specifier: workspace:^
         version: link:../../packages/constants
       '@shared/database':
         specifier: workspace:^
         version: link:../../packages/database
+      '@shared/providers':
+        specifier: workspace:^
+        version: link:../../packages/providers
       '@shared/utils':
         specifier: workspace:^
         version: link:../../packages/utils
@@ -204,9 +216,6 @@ importers:
       dayjs:
         specifier: 1.11.11
         version: 1.11.11
-      drizzle-graphql:
-        specifier: ^0.3.6
-        version: 0.3.6(drizzle-orm@0.30.10)(graphql@16.8.1)
       drizzle-orm:
         specifier: 0.30.10
         version: 0.30.10(@types/pg@8.11.6)(pg@8.11.5)
@@ -691,6 +700,9 @@ importers:
 
   packages/providers:
     dependencies:
+      '@nestjs/apollo':
+        specifier: ^12.1.0
+        version: 12.1.0(@apollo/gateway@2.7.7)(@apollo/server@4.10.4)(@nestjs/common@10.3.8)(@nestjs/core@10.3.8)(@nestjs/graphql@12.1.1)(graphql@16.8.1)
       '@nestjs/axios':
         specifier: ^3.0.2
         version: 3.0.2(@nestjs/common@10.3.8)(axios@1.6.8)(rxjs@7.8.1)
@@ -730,6 +742,9 @@ importers:
       destr:
         specifier: ^2.0.3
         version: 2.0.3
+      drizzle-graphql:
+        specifier: ^0.4.0
+        version: 0.4.0(drizzle-orm@0.30.10)(graphql@16.8.1)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -6695,8 +6710,8 @@ packages:
       wordwrap: 1.0.0
     dev: true
 
-  /drizzle-graphql@0.3.6(drizzle-orm@0.30.10)(graphql@16.8.1):
-    resolution: {integrity: sha512-rD5c9MS0pjKMfw5TAsZiNYG84HyGgz8c3mbOEC19L1OrMaqm7aA2Ww/TEYjh/SwMTuyWgUJ3Bllah7uozuz79g==}
+  /drizzle-graphql@0.4.0(drizzle-orm@0.30.10)(graphql@16.8.1):
+    resolution: {integrity: sha512-TIsJu/I343xmm1iPN7yEi4YathZO9fe1fm89hViTPfNnAaFZ8PvkiT+7HF/MHtFkhtMFhmySzzWlKRrot1PlUw==}
     peerDependencies:
       drizzle-orm: '>=0.30.9'
       graphql: '>=16.3.0'

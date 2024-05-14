@@ -15,7 +15,10 @@ import { GraphRouterService } from './graph-router.service'
       server: { playground: true },
       gateway: {
         supergraphSdl: new IntrospectAndCompose({
+          // Subgraph service endpoints
           subgraphs: RouterSubgraph.get(['product']),
+          subgraphHealthCheck: true,
+          pollIntervalInMs: 1000
         }),
         buildService({ url }) {
           return new RemoteGraphQLDataSource({
