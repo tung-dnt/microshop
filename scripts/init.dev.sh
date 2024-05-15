@@ -18,7 +18,7 @@ echo "🤖 Getting microservice names..."
 index=0
 for service in "./apps"/*; do
   base_service=$(basename "$service")
-  if [[ -d "$service" && $base_service != "ui" ]]; then
+  if test -d "$service" -a $base_service != "ui"; then
     # Append the folder name to the variable
     services[$index]=$base_service
     index=$((index + 1))
