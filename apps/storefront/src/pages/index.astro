@@ -1,0 +1,922 @@
+---
+import Layout from '@layouts/Layout.astro'
+import Header from '@astro/Header.astro'
+import HeroBanner from '@astro/HeroBanner.astro'
+import Footer from '@astro/Footer.astro'
+import SketchedProductSmall from '@astro/SketchedProductSmall.astro'
+import SketchedProductLarge from '@solid/SketchedProductLarge'
+import Category from '@solid/Category'
+import NewProductsHeader from '@solid/ProductHeader'
+import ProductCard from '@solid/ProductCard'
+import SaleProductSlider from '@solid/SaleProductSlider'
+
+const CATEGORIES = [
+  { image: '/image@2x.png', category: 'Accessories' },
+  { image: '/image-1@2x.png', category: 'Camera' },
+  { image: '/image-2@2x.png', category: 'Laptop' },
+  { image: '/image-3@2x.png', category: 'Smart Phone' },
+  { image: '/image-4@2x.png', category: 'Gaming' },
+  { image: '/image-5@2x.png', category: 'Smart Watch' },
+]
+---
+
+<Layout title="Welcome to Microshop.">
+  <div
+    class="w-full relative bg-white pt-0 px-0 pb-0.5 box-border leading-[normal] tracking-[normal] text-center text-base text-white font-web-button-lg"
+  >
+    <main class="max-w-full">
+      <div
+        class="flex-1 flex flex-col items-start justify-start gap-[48px] mq825:gap-[24px] max-w-full text-45xl text-black font-web-button-lg text-left"
+      >
+        <!-- Hero Section -->
+        <div
+          class="self-stretch flex flex-row items-start justify-start max-w-full z-[19] text-primary-primary-700"
+        >
+          <div
+            class="flex-1 flex flex-col items-start justify-start gap-[1px] max-w-full"
+          >
+            <Header />
+            <HeroBanner
+              textPrimary="Microshop"
+              textSecondary="Join the "
+              description="digital revolution"
+            />
+          </div>
+        </div>
+        <!-- Content Section -->
+        <div
+          class="self-stretch flex flex-row items-start justify-start pt-0 px-[38px] pb-2 box-border max-w-full text-xs"
+        >
+          <div
+            class="flex-1 flex flex-col items-start justify-start gap-[48px] max-w-full mq825:gap-[24px]"
+          >
+            <!-- CATEGORIES -->
+            <div
+              class="self-stretch flex flex-row items-start justify-start box-border max-w-full mq1425:pl-[35px] mq1425:pr-[35px] mq1425:box-border"
+            >
+              <div
+                class="flex-1 grid flex-row items-start justify-start gap-[24px] max-w-full grid-cols-[repeat(6,_minmax(138px,_1fr))] z-[19] lg:justify-center lg:grid-cols-[repeat(3,_minmax(138px,_239px))] mq450:grid-cols-[minmax(138px,_1fr)] mq825:grid-cols-[repeat(2,_minmax(138px,_239px))]"
+              >
+                {
+                  CATEGORIES.map(({ image, category }) => (
+                    <Category image={image} category={category} />
+                  ))
+                }
+              </div>
+            </div>
+            <!-- ON SALE PRODUCTS -->
+            <div
+              class="self-stretch h-[325px] flex flex-row items-start justify-start py-0 px-[70px] box-border max-w-full mq1425:pl-[35px] mq1425:pr-[35px] mq1425:box-border"
+            >
+              <SaleProductSlider />
+            </div>
+            <!-- NEW PRODUCT CARD -->
+            <div
+              class="self-stretch flex flex-row items-start justify-start py-0 px-[70px] box-border max-w-full text-base text-primary-primary-500 mq1425:pl-[35px] mq1425:pr-[35px] mq1425:box-border"
+            >
+              <div
+                class="flex-1 flex flex-col items-start justify-start gap-[30px] max-w-full"
+              >
+                <NewProductsHeader newProducts="New Products" />
+                <div
+                  class="self-stretch grid flex-row items-start justify-start gap-[24px] grid-cols-[repeat(4,_minmax(216px,_1fr))] lg:justify-center lg:grid-cols-[repeat(2,_minmax(216px,_374px))] mq825:grid-cols-[minmax(216px,_1fr)]"
+                >
+                  <ProductCard
+                    title="Iphone 14 promax 256 gig"
+                    lastPrice="$979.90"
+                    newPrice="$930.90"
+                    emptyStarIcon="4.5"
+                    discountAmount="-5%"
+                    showProductCardColorPalette
+                    showProductCardColorSwatches
+                    showExtraColor
+                  />
+                  <div
+                    class="shadow-[-2px_2px_20px_-1px_rgba(113,_113,_113,_0.2)] rounded-lg bg-white flex flex-col items-start justify-start p-4 relative gap-[16px] z-[19]"
+                  >
+                    <div
+                      class="self-stretch h-[190px] relative max-w-full shrink-0 flex items-center justify-center z-[0]"
+                    >
+                      <img
+                        class="self-stretch h-full overflow-hidden shrink-0 object-contain absolute left-[0px] top-[0px] w-full [transform:scale(1.063)]"
+                        alt=""
+                        src="/image-11@2x.png"
+                      />
+                    </div>
+                    <img
+                      class="self-stretch h-px relative max-w-full overflow-hidden shrink-0"
+                      alt=""
+                      src="/line-3-1.svg"
+                    />
+                    <div
+                      class="self-stretch flex flex-col items-start justify-start gap-[16px]"
+                    >
+                      <div
+                        class="self-stretch relative leading-[24px] font-light [display:-webkit-inline-box] items-center overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
+                      >
+                        Blackmagic Design Pocket Cinema Camera 6K Pro (Canon EF)
+                      </div>
+                      <div
+                        class="self-stretch flex flex-row items-end justify-between gap-[0px] [row-gap:20px] text-sm text-neutral-gray-717171 mq450:flex-wrap"
+                      >
+                        <div
+                          class="w-32 flex flex-col items-center justify-start"
+                        >
+                          <div
+                            class="self-stretch flex flex-col items-center justify-start"
+                          >
+                            <div
+                              class="self-stretch h-[17px] relative [text-decoration:line-through] hidden whitespace-nowrap"
+                            >
+                              $1410.87
+                            </div>
+                            <div
+                              class="self-stretch relative text-lg font-light text-black whitespace-nowrap"
+                            >
+                              $2535.00
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="w-32 flex flex-row items-center justify-end text-base text-primary-primary-500"
+                        >
+                          <div
+                            class="flex flex-row items-center justify-end gap-[2px]"
+                          >
+                            <img
+                              class="h-6 w-6 relative rounded-11xs-2"
+                              alt=""
+                              src="/star-icon.svg"
+                            />
+                            <div
+                              class="relative font-medium inline-block min-w-[25px]"
+                            >
+                              4.8
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <img
+                      class="w-6 h-6 absolute !m-[0] top-[16px] left-[16px] z-[1]"
+                      alt=""
+                      src="/heart.svg"
+                    />
+                  </div>
+                  <ProductCard
+                    title="SAMSUNG Galaxy S23 Ultra Cell Phone,256 GB"
+                    lastPrice="$1410.87"
+                    newPrice="$1018.00"
+                    emptyStarIcon="4.7"
+                    discountAmount="-12%"
+                    showProductCardColorPalette
+                    showProductCardColorSwatches
+                    showExtraColor
+                    propBackgroundImage="url('/image2@3x.png')"
+                    propPadding="55.5px 0px"
+                    propBackgroundColor="#eadee9"
+                    propBackgroundColor1="#bcd7ff"
+                    propBackgroundColor2="#8b8b8b"
+                    propMinWidth="11px"
+                    propWidth="unset"
+                    propHeight="24px"
+                    propFlex="1"
+                    propDisplay="inline-block"
+                  />
+                  <ProductCard
+                    title="VR VisionTech X1"
+                    lastPrice="$1410.87"
+                    newPrice="$1,399.00"
+                    emptyStarIcon="3.9"
+                    discountAmount="-12%"
+                    showProductCardColorPalette={false}
+                    showProductCardColorSwatches={false}
+                    showExtraColor={false}
+                    propBackgroundImage="url('/image3@3x.png')"
+                    propPadding="89px 0px"
+                    propBackgroundColor="#101010"
+                    propBackgroundColor1="#0a0a0a"
+                    propBackgroundColor2="#b4b4b4"
+                    propMinWidth="unset"
+                    propWidth="11px"
+                    propHeight="24px"
+                    propFlex="1"
+                    propDisplay="inline-block"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- SKETCHED NEW PRODUCTS -->
+            <div
+              class="self-stretch overflow-hidden flex flex-row items-start justify-start max-w-full z-[1] text-5xl"
+            >
+              <div
+                class="flex-1 overflow-hidden flex flex-col items-end justify-start py-0 pr-[70px] pl-0 box-border gap-[48px] max-w-full z-[19] mq825:gap-[24px] mq1425:pr-[35px] mq1425:box-border"
+              >
+                <div
+                  class="self-stretch overflow-hidden flex flex-row items-start justify-start py-0 pr-0 pl-[70px] box-border relative gap-[24px] max-w-full z-[20] text-center lg:flex-wrap mq1425:pl-[35px] mq1425:box-border"
+                >
+                  <img
+                    class="h-[61px] w-[118px] relative overflow-hidden shrink-0 hidden z-[0]"
+                    alt=""
+                    src="/frame.svg"
+                  />
+                  <SketchedProductLarge
+                    name="Iphone 15 series"
+                    image="/image-187@2x.png"
+                    title="It feels good to be the first"
+                    description="Get ready for the future of smartphones. Experience innovation like never before. Stay tuned for the big iPhone 15 pre-sale."
+                  />
+                  <SketchedProductSmall
+                    name="Play Station 5"
+                    image="/ps53@2x.png"
+                  />
+                  <div
+                    class="w-[1294px] !m-[0] absolute top-[18px] left-[0px] flex flex-row items-start justify-start max-w-full"
+                  >
+                    <img
+                      class="h-[474px] w-[118px] absolute !m-[0] right-[445px] bottom-[-311px] overflow-hidden shrink-0"
+                      alt=""
+                      src="/frame-107.svg"
+                    />
+                    <img
+                      class="h-[118px] flex-1 relative max-w-full overflow-hidden z-[21]"
+                      alt=""
+                      src="/frame-108.svg"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="w-[1224px] flex flex-col items-start justify-start gap-[30px] max-w-full text-base text-neutral-gray-505050"
+                >
+                  <NewProductsHeader
+                    newProducts="Best Sellers"
+                    propWidth="217px"
+                  />
+                  <div
+                    class="self-stretch grid flex-row items-start justify-start gap-[24px] grid-cols-[repeat(4,_minmax(216px,_1fr))] lg:justify-center lg:grid-cols-[repeat(2,_minmax(216px,_374px))] mq825:grid-cols-[minmax(216px,_1fr)]"
+                  >
+                    <div
+                      class="shadow-[-2px_2px_15px_-1px_rgba(113,_113,_113,_0.12)] rounded-lg bg-white overflow-hidden flex flex-col items-start justify-start p-4 gap-[15.5px] z-[20]"
+                    >
+                      <div
+                        class="self-stretch flex flex-row items-end justify-start pt-3.5 pb-[15px] pr-0 pl-[19px] gap-[8px] text-center"
+                      >
+                        <img
+                          class="h-[161px] w-[217px] relative rounded-lg overflow-hidden shrink-0 object-contain"
+                          alt=""
+                          src="/image-12@2x.png"
+                        />
+                        <div
+                          class="h-[86px] flex flex-col items-start justify-start"
+                        >
+                          <div
+                            class="flex flex-col items-center justify-start gap-[8px]"
+                          >
+                            <div
+                              class="w-3 h-3 relative rounded-[50%] bg-gray-300 box-border hidden border-[0px] border-solid border-neutral-gray-444444"
+                            >
+                            </div>
+                            <div
+                              class="w-3 h-3 relative rounded-[50%] bg-white box-border hidden border-[0px] border-solid border-neutral-gray-444444"
+                            >
+                            </div>
+                            <div
+                              class="w-3 h-3 relative rounded-[50%] bg-gray-200 box-border border-[0px] border-solid border-neutral-gray-444444"
+                            >
+                            </div>
+                            <div class="w-[11px] relative font-medium hidden">
+                              +
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        class="self-stretch h-px relative max-w-full overflow-hidden shrink-0"
+                        alt=""
+                        src="/line-3.svg"
+                      />
+                      <div
+                        class="self-stretch flex flex-col items-start justify-start gap-[16px] text-black"
+                      >
+                        <div
+                          class="self-stretch relative leading-[24px] font-light [display:-webkit-inline-box] items-center overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
+                        >
+                          EchoX Pro H900
+                        </div>
+                        <div
+                          class="self-stretch flex flex-row items-end justify-between gap-[0px] [row-gap:20px] text-sm text-neutral-gray-717171 mq450:flex-wrap"
+                        >
+                          <div
+                            class="w-32 flex flex-col items-center justify-start"
+                          >
+                            <div
+                              class="self-stretch flex flex-col items-center justify-start"
+                            >
+                              <div
+                                class="self-stretch h-[17px] relative [text-decoration:line-through] hidden whitespace-nowrap"
+                              >
+                                $38.00
+                              </div>
+                              <div
+                                class="self-stretch relative text-lg font-light text-black whitespace-nowrap"
+                              >
+                                $32.30
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="w-32 flex flex-row items-center justify-end text-base text-primary-primary-500"
+                          >
+                            <div
+                              class="flex flex-row items-center justify-end gap-[2px]"
+                            >
+                              <img
+                                class="h-6 w-6 relative rounded-11xs-2"
+                                alt=""
+                                src="/star-icon.svg"
+                              />
+                              <div
+                                class="relative font-medium inline-block min-w-[21px]"
+                              >
+                                4.1
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="w-[49px] rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-none bg-primary-secondary-secondary-100 overflow-hidden hidden flex-row items-center justify-start py-1 px-1.5 box-border text-secondary"
+                      >
+                        <div
+                          class="h-6 flex-1 relative leading-[24px] font-light inline-block"
+                        >
+                          -15%
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="shadow-[-2px_2px_20px_-1px_rgba(113,_113,_113,_0.2)] rounded-lg bg-white flex flex-col items-start justify-start p-4 relative gap-[16px] z-[20] text-primary-primary-500"
+                    >
+                      <div
+                        class="self-stretch h-[190px] relative max-w-full shrink-0 flex items-center justify-center z-[0]"
+                      >
+                        <img
+                          class="self-stretch h-full overflow-hidden shrink-0 object-contain absolute left-[0px] top-[0px] w-full [transform:scale(1.063)]"
+                          alt=""
+                          src="/image-13@2x.png"
+                        />
+                      </div>
+                      <img
+                        class="self-stretch h-px relative max-w-full overflow-hidden shrink-0"
+                        alt=""
+                        src="/line-3-1.svg"
+                      />
+                      <div
+                        class="self-stretch flex flex-col items-start justify-start gap-[16px]"
+                      >
+                        <div
+                          class="self-stretch h-[38px] relative leading-[24px] font-light flex items-center overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
+                        >
+                          Play Station 4 Pro 1Tb
+                        </div>
+                        <div
+                          class="self-stretch flex flex-row items-end justify-between gap-[0px] [row-gap:20px] text-sm text-neutral-gray-717171 mq450:flex-wrap"
+                        >
+                          <div
+                            class="w-32 flex flex-col items-center justify-start"
+                          >
+                            <div
+                              class="self-stretch flex flex-col items-center justify-start"
+                            >
+                              <div
+                                class="self-stretch relative [text-decoration:line-through] whitespace-nowrap"
+                              >
+                                $1090.00
+                              </div>
+                              <div
+                                class="self-stretch relative text-lg font-light text-black whitespace-nowrap"
+                              >
+                                $980.00
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="w-32 flex flex-row items-center justify-end text-base text-primary-primary-500"
+                          >
+                            <div
+                              class="flex flex-row items-center justify-end gap-[2px]"
+                            >
+                              <img
+                                class="h-6 w-6 relative rounded-11xs-2"
+                                alt=""
+                                src="/star-icon.svg"
+                              />
+                              <div
+                                class="relative font-medium inline-block min-w-[26px]"
+                              >
+                                4.4
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        class="w-6 h-6 absolute !m-[0] top-[16px] left-[16px] z-[1]"
+                        alt=""
+                        src="/heart.svg"
+                      />
+                    </div>
+                    <div
+                      class="shadow-[-2px_2px_15px_-1px_rgba(113,_113,_113,_0.12)] rounded-lg bg-white overflow-hidden flex flex-col items-start justify-start p-4 gap-[15.5px] z-[20]"
+                    >
+                      <div
+                        class="self-stretch flex flex-row items-end justify-start pt-3.5 pb-[15px] pr-0 pl-[19px] gap-[8px] text-center"
+                      >
+                        <img
+                          class="h-[161px] w-[217px] relative rounded-lg overflow-hidden shrink-0 object-contain"
+                          alt=""
+                          src="/image-14@2x.png"
+                        />
+                        <div
+                          class="h-24 flex flex-col items-start justify-start"
+                        >
+                          <div
+                            class="flex flex-col items-center justify-start gap-[8px]"
+                          >
+                            <div
+                              class="w-3 h-3 relative rounded-[50%] bg-gray-300 box-border hidden border-[0px] border-solid border-neutral-gray-444444"
+                            >
+                            </div>
+                            <div
+                              class="w-3 h-3 relative rounded-[50%] bg-white box-border border-[0px] border-solid border-neutral-gray-444444"
+                            >
+                            </div>
+                            <div
+                              class="w-3 h-3 relative rounded-[50%] bg-gray-100 box-border border-[0px] border-solid border-neutral-gray-444444"
+                            >
+                            </div>
+                            <div class="w-[11px] relative font-medium hidden">
+                              +
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        class="self-stretch h-px relative max-w-full overflow-hidden shrink-0"
+                        alt=""
+                        src="/line-3.svg"
+                      />
+                      <div
+                        class="self-stretch flex flex-col items-start justify-start gap-[16px] text-black"
+                      >
+                        <div
+                          class="self-stretch relative leading-[24px] font-light [display:-webkit-inline-box] items-center overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
+                        >
+                          Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey
+                          (Apple M2 Chip / 256GB SSD / 8GB RAM) - French
+                        </div>
+                        <div
+                          class="self-stretch flex flex-row items-end justify-between gap-[0px] [row-gap:20px] text-sm text-neutral-gray-717171 mq450:flex-wrap"
+                        >
+                          <div
+                            class="w-32 flex flex-col items-center justify-start"
+                          >
+                            <div
+                              class="self-stretch flex flex-col items-center justify-start"
+                            >
+                              <div
+                                class="self-stretch h-[17px] relative [text-decoration:line-through] hidden whitespace-nowrap"
+                              >
+                                $950.22
+                              </div>
+                              <div
+                                class="self-stretch relative text-lg font-light text-black whitespace-nowrap"
+                              >
+                                $1883.05
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="w-32 flex flex-row items-center justify-end text-base text-primary-primary-500"
+                          >
+                            <div
+                              class="flex flex-row items-center justify-end gap-[2px]"
+                            >
+                              <img
+                                class="h-6 w-6 relative rounded-11xs-2"
+                                alt=""
+                                src="/star-icon.svg"
+                              />
+                              <div
+                                class="relative font-medium inline-block min-w-[25px]"
+                              >
+                                4.5
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="w-[49px] rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-none bg-primary-secondary-secondary-100 overflow-hidden hidden flex-row items-center justify-start py-1 px-1.5 box-border text-secondary"
+                      >
+                        <div class="relative leading-[24px] font-light">
+                          -7%
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="shadow-[-2px_2px_15px_-1px_rgba(113,_113,_113,_0.12)] rounded-lg bg-white overflow-hidden flex flex-col items-end justify-start py-4 pr-4 pl-0 gap-[15.5px] z-[20] text-center"
+                    >
+                      <div class="self-stretch h-[190px] relative">
+                        <div
+                          class="absolute top-[0px] left-[16px] flex flex-row items-end justify-start pt-3.5 pb-[15px] pr-0 pl-[19px] gap-[8px]"
+                        >
+                          <img
+                            class="h-[161px] w-[217px] relative rounded-lg overflow-hidden shrink-0 object-contain"
+                            alt=""
+                            src="/image-15@2x.png"
+                          />
+                          <div
+                            class="h-[86px] flex flex-col items-start justify-start"
+                          >
+                            <div
+                              class="flex flex-col items-center justify-start gap-[8px]"
+                            >
+                              <div
+                                class="w-3 h-3 relative rounded-[50%] bg-gray-300 box-border hidden border-[0px] border-solid border-neutral-gray-444444"
+                              >
+                              </div>
+                              <div
+                                class="w-3 h-3 relative rounded-[50%] bg-crimson box-border hidden border-[0px] border-solid border-neutral-gray-444444"
+                              >
+                              </div>
+                              <div
+                                class="w-3 h-3 relative rounded-[50%] bg-white box-border border-[0px] border-solid border-neutral-gray-444444"
+                              >
+                              </div>
+                              <div class="w-[11px] relative font-medium hidden">
+                                +
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="absolute top-[0px] left-[0px] rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-none bg-primary-secondary-secondary-100 overflow-hidden flex flex-row items-start justify-start py-1 px-1.5 z-[1] text-left text-secondary"
+                        >
+                          <div
+                            class="relative leading-[24px] font-light inline-block min-w-[37px]"
+                          >
+                            -10%
+                          </div>
+                        </div>
+                      </div>
+                      <img
+                        class="w-64 h-px relative"
+                        alt=""
+                        src="/line-3.svg"
+                      />
+                      <div
+                        class="w-64 flex flex-col items-start justify-start gap-[16px] text-left text-black"
+                      >
+                        <div
+                          class="self-stretch h-[38px] relative leading-[24px] font-light flex items-center overflow-hidden text-ellipsis whitespace-nowrap shrink-0"
+                        >
+                          Airpods pro2
+                        </div>
+                        <div
+                          class="self-stretch flex flex-row items-end justify-between gap-[0px] [row-gap:20px] text-sm text-neutral-gray-717171 mq450:flex-wrap"
+                        >
+                          <div
+                            class="w-32 flex flex-col items-center justify-start"
+                          >
+                            <div
+                              class="self-stretch flex flex-col items-center justify-start"
+                            >
+                              <div
+                                class="self-stretch relative [text-decoration:line-through] whitespace-nowrap"
+                              >
+                                $ 285.08
+                              </div>
+                              <div
+                                class="self-stretch relative text-lg font-light text-black whitespace-nowrap"
+                              >
+                                $274.04
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="w-32 flex flex-row items-center justify-end text-base text-primary-primary-500"
+                          >
+                            <div
+                              class="flex flex-row items-center justify-end gap-[2px]"
+                            >
+                              <img
+                                class="h-6 w-6 relative rounded-11xs-2"
+                                alt=""
+                                src="/star-icon.svg"
+                              />
+                              <div
+                                class="relative font-medium inline-block min-w-[25px]"
+                              >
+                                4.2
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="w-[1224px] flex flex-col items-start justify-start gap-[30px] max-w-full text-13xl"
+                >
+                  <div
+                    class="self-stretch flex flex-col items-start justify-start gap-[16px]"
+                  >
+                    <div
+                      class="self-stretch flex flex-row items-start justify-start gap-[842px] z-[20]"
+                    >
+                      <h1
+                        class="m-0 h-12 w-[217px] relative text-inherit font-medium font-inherit flex items-center shrink-0 mq450:text-lgi mq825:text-7xl"
+                      >
+                        Top Brands
+                      </h1>
+                      <div
+                        class="self-stretch w-[165px] rounded-lg hidden flex-row items-center justify-center py-1 px-2 box-border gap-[8px] text-center text-base"
+                      >
+                        <img
+                          class="h-6 w-6 relative hidden"
+                          alt=""
+                          src="/vuesaxoutlineshoppingcart2.svg"
+                        />
+                        <div class="w-[59px] relative hidden">View all</div>
+                        <img
+                          class="h-6 w-6 relative hidden"
+                          alt=""
+                          src="/vuesaxoutlinearrowright.svg"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="self-stretch h-0.5 relative box-border z-[20] border-t-[2px] border-solid border-neutral-gray-b4b4b4"
+                    >
+                    </div>
+                  </div>
+                  <img
+                    class="self-stretch relative max-w-full overflow-hidden max-h-full object-cover z-[20]"
+                    alt=""
+                    src="/top-brands@2x.png"
+                  />
+                </div>
+                <div
+                  class="h-[420px] rounded-lg bg-darkslategray overflow-hidden shrink-0 flex flex-row items-end justify-start pt-32 px-16 pb-[127px] box-border gap-[161px] max-w-full z-[20] text-25xl text-white lg:pt-[83px] lg:pb-[83px] lg:box-border mq450:gap-[20px] mq825:gap-[40px] mq825:pt-[54px] mq825:pb-[54px] mq825:box-border mq1425:gap-[80px] mq1425:pl-8 mq1425:pr-8 mq1425:box-border"
+                >
+                  <div
+                    class="flex flex-col items-start justify-start gap-[32px] shrink-0 lg:max-w-full mq450:gap-[16px] max-w-full"
+                  >
+                    <div
+                      class="flex flex-col items-start justify-start gap-[16px]"
+                    >
+                      <h1
+                        class="m-0 relative text-inherit font-medium font-inherit mq450:text-7xl mq825:text-[35px]"
+                      >
+                        SMART WATCH
+                      </h1>
+                      <div
+                        class="flex flex-row items-start justify-start py-0 pr-[9px] pl-2 text-5xl"
+                      >
+                        <h3
+                          class="m-0 relative text-inherit font-light font-inherit mq450:text-lgi"
+                        >
+                          Various designs and brands
+                        </h3>
+                      </div>
+                    </div>
+                    <div
+                      class="self-stretch flex flex-row items-start justify-center py-0 pr-[21px] pl-5 text-center text-base text-darkslategray"
+                    >
+                      <div
+                        class="rounded-lg bg-tomato flex flex-row items-start justify-start py-2 px-4"
+                      >
+                        <div class="relative inline-block min-w-[36px]">
+                          view
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <img
+                    class="mb-[-273px] h-[712px] w-[1044px] relative overflow-hidden shrink-0 [debug_commit:1de1738] max-w-[calc(100%_-_488px)]"
+                    alt=""
+                    src="/frame-109.svg"
+                  />
+                </div>
+              </div>
+            </div>
+            <!-- BLOG SECTION -->
+            <div
+              class="self-stretch flex flex-row items-start justify-start py-0 px-[70px] box-border max-w-full text-13xl mq1425:pl-[35px] mq1425:pr-[35px] mq1425:box-border"
+            >
+              <div
+                class="flex-1 flex flex-col items-start justify-start gap-[32px] max-w-full z-[19] mq825:gap-[16px]"
+              >
+                <!-- BLOG SECTION HEADER -->
+                <div
+                  class="self-stretch flex flex-col items-start justify-start gap-[16px]"
+                >
+                  <div
+                    class="self-stretch flex flex-row items-center justify-between gap-[20px] mq825:flex-wrap"
+                  >
+                    <h1
+                      class="m-0 h-12 relative text-inherit font-medium font-inherit flex items-center mq450:text-lgi mq825:text-7xl"
+                    >
+                      Our Blogs
+                    </h1>
+                    <div
+                      class="rounded-lg flex flex-row items-center justify-center py-3 px-[41px] text-center text-base"
+                    >
+                      <img
+                        class="h-6 w-6 relative hidden min-h-[24px]"
+                        alt=""
+                        src="/vuesaxoutlineshoppingcart1.svg"
+                      />
+                      <a
+                        class="[text-decoration:none] relative text-[inherit] inline-block min-w-[59px]"
+                      >
+                        View all
+                      </a>
+                      <img
+                        class="h-6 w-6 relative"
+                        alt=""
+                        src="/vuesaxoutlinearrowcircleright.svg"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- BLOG CARDS -->
+                <div
+                  class="self-stretch flex flex-row items-start justify-start gap-[24px] max-w-full text-xs lg:flex-wrap"
+                >
+                  <div
+                    class="w-[392px] shadow-[-2px_2px_15px_-1px_rgba(113,_113,_113,_0.12)] rounded-lg bg-white overflow-hidden shrink-0 flex flex-col items-start justify-start gap-[8px] min-w-[392px] max-w-full lg:flex-1 mq825:min-w-full"
+                  >
+                    <img
+                      class="self-stretch h-[204px] relative max-w-full overflow-hidden shrink-0 object-cover"
+                      alt=""
+                      src="/image-16@2x.png"
+                    />
+                    <div
+                      class="self-stretch flex flex-col items-start justify-start pt-0 px-4 pb-4 gap-[8px]"
+                    >
+                      <div
+                        class="self-stretch flex flex-row items-start justify-between gap-[0px] [row-gap:20px] text-neutral-gray-9e9e9e mq825:flex-wrap"
+                      >
+                        <div
+                          class="w-[180px] flex flex-row items-end justify-start gap-[2px]"
+                        >
+                          <img
+                            class="h-5 w-5 relative"
+                            alt=""
+                            src="/vuesaxoutlinecalendar.svg"
+                          />
+                          <div class="flex-1 relative font-light">
+                            August , 8 , 2023
+                          </div>
+                        </div>
+                        <div
+                          class="flex flex-row items-end justify-end py-0 pr-0 pl-[98px] gap-[2px] text-right text-neutral-gray-717171"
+                        >
+                          <img
+                            class="h-5 w-5 relative"
+                            alt=""
+                            src="/vuesaxoutlinetimer.svg"
+                          />
+                          <div
+                            class="relative font-light inline-block min-w-[60px]"
+                          >
+                            3 min read
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="self-stretch relative text-xl font-medium overflow-hidden text-ellipsis whitespace-nowrap mq450:text-base"
+                      >
+                        Meta Platforms plans to release free software that...
+                      </div>
+                      <div
+                        class="self-stretch relative text-base leading-[24px] font-light [display:-webkit-inline-box] overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
+                      >
+                        {
+                          `The parent company of Facebook, Meta Platforms, is introducing software to help developers `
+                        }
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="flex-1 flex flex-col items-start justify-start gap-[24px] min-w-[525px] max-w-full text-base text-secondary mq825:min-w-full"
+                  >
+                    <div
+                      class="self-stretch shadow-[-2px_2px_20px_-1px_rgba(113,_113,_113,_0.2)] rounded-lg bg-white overflow-hidden flex flex-row items-center justify-start gap-[16px] max-w-full mq825:flex-wrap"
+                    >
+                      <img
+                        class="h-[156px] w-60 relative overflow-hidden shrink-0 object-cover mq825:flex-1"
+                        alt=""
+                        src="/blog-image@2x.png"
+                      />
+                      <div
+                        class="flex-1 flex flex-col items-start justify-center py-5 px-0 box-border gap-[16px] min-w-[359px] max-w-full mq825:min-w-full"
+                      >
+                        <div
+                          class="self-stretch flex flex-col items-start justify-start gap-[8px]"
+                        >
+                          <div
+                            class="self-stretch relative font-medium overflow-hidden text-ellipsis whitespace-nowrap"
+                          >
+                            8 Things You Probably Didn’t Know About Headphones
+                          </div>
+                          <div
+                            class="self-stretch relative text-sm font-light text-neutral-gray-717171 [display:-webkit-inline-box] overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
+                          >
+                            Owning a headphone could mean a different thing for
+                            different people. For some, it act as a fashion
+                            statement. It’s easy to spot these people, the
+                            headphone are almost always just hanging around the
+                            neck.
+                          </div>
+                        </div>
+                        <div
+                          class="self-stretch flex flex-row items-center justify-start py-0 pr-4 pl-0 box-border gap-[8px] max-w-full text-xs text-neutral-gray-9e9e9e mq825:flex-wrap"
+                        >
+                          <img
+                            class="h-5 w-5 relative min-h-[20px]"
+                            alt=""
+                            src="/vuesaxoutlinecalendar-1.svg"
+                          />
+                          <div
+                            class="flex-1 relative font-light inline-block min-w-[78px] max-w-full"
+                          >
+                            March , 28 , 2023
+                          </div>
+                          <img
+                            class="h-5 w-5 relative"
+                            alt=""
+                            src="/save.svg"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="self-stretch shadow-[-2px_2px_15px_-1px_rgba(113,_113,_113,_0.12)] rounded-lg bg-white overflow-hidden flex flex-row items-center justify-start gap-[16px] max-w-full text-black mq825:flex-wrap"
+                    >
+                      <img
+                        class="h-[156px] w-60 relative overflow-hidden shrink-0 object-cover mq825:flex-1"
+                        alt=""
+                        src="/blog-image-1@2x.png"
+                      />
+                      <div
+                        class="flex-1 flex flex-col items-start justify-center py-5 pr-3 pl-0 box-border gap-[24px] min-w-[359px] max-w-full mq825:min-w-full"
+                      >
+                        <div
+                          class="self-stretch flex flex-col items-start justify-start gap-[8px]"
+                        >
+                          <div
+                            class="self-stretch relative font-medium overflow-hidden text-ellipsis whitespace-nowrap"
+                          >
+                            Analyzing the August 17th Bitcoin Price Drop
+                          </div>
+                          <div
+                            class="self-stretch relative text-sm font-light text-neutral-gray-717171 [display:-webkit-inline-box] overflow-hidden text-ellipsis [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
+                          >
+                            On August 17th at 9:30PM UTC, Bitcoin’s price
+                            dropped more than 8% in a 10-minute window, to a
+                            two-month low of under $26k. This pulled
+                          </div>
+                        </div>
+                        <div
+                          class="self-stretch flex flex-row items-center justify-start py-0 pr-4 pl-0 box-border gap-[8px] max-w-full text-xs text-neutral-gray-9e9e9e"
+                        >
+                          <img
+                            class="h-5 w-5 relative"
+                            alt=""
+                            src="/vuesaxoutlinecalendar-1.svg"
+                          />
+                          <div
+                            class="flex-1 relative font-light inline-block max-w-[calc(100%_-_28px)]"
+                          >
+                            August , 17 , 2023
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- BLOG END -->
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </main>
+  </div>
+</Layout>

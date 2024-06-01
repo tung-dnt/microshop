@@ -1,46 +1,15 @@
 name: microshop
 services:
-  # web:
-  #   container_name: web
-  #   build:
-  #     context: ./
-  #     dockerfile: apps/ui/Dockerfile
-  #   develop:
-  #     watch:
-  #       - path: ./apps/ui
-  #         action: sync
-  #         target: /app/apps/ui
-  #         ignore:
-  #           - node_modules/
-  #   ports:
-  #     - '6969:3000'
-
-  # product:
-  #   container_name: product
-  #   build:
-  #     context: .
-  #     dockerfile: apps/product/Dockerfile
-  #   develop:
-  #     watch:
-  #       - path: ./apps/product
-  #         action: sync
-  #         target: /app/apps/product
-  #         ignore:
-  #           - node_modules/
-  #   depends_on:
-  #     - product_db
-
-  commerce_db:
-    container_name: commerce_db
+  commercial_db:
     image: postgres:15.1-alpine
-    volumes:
-      - commerce_data:/var/lib/postgres/data
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: password
-    restart: unless-stopped
     ports:
-      - '5433:5432'
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: microshop
 
-volumes:
-  commerce_data:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"

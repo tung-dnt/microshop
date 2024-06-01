@@ -1,0 +1,47 @@
+---
+interface Props {
+  textPrimary: string;
+  textSecondary: string;
+  description: string;
+}
+const { textPrimary, textSecondary, description } = Astro.props
+---
+<div class="self-stretch flex flex-row items-start justify-center py-0 px-5 box-border max-w-full">
+  <div class="w-[1224px] flex flex-row items-start justify-center gap-[77px] max-w-full lg:flex-wrap mq450:gap-[19px] mq825:gap-[38px]">
+    <div class="w-[419px] flex flex-col items-start justify-start pt-[55px] px-0 pb-0 box-border min-w-[419px] max-w-full lg:flex-1 mq450:pt-9 mq450:box-border mq825:min-w-full">
+      <div class="self-stretch flex flex-col items-start justify-start gap-[110px] max-w-full mq450:gap-[55px]">
+        <div class="self-stretch flex flex-col items-start justify-start gap-[50px] max-w-full mq450:gap-[25px]">
+          <h1 class="m-0 w-[337px] relative text-inherit font-semibold font-inherit inline-block max-w-full mq450:text-[38px] mq825:text-[51px]">
+            {textPrimary}
+          </h1>
+          <h1 class="m-0 self-stretch relative text-13xl font-medium font-inherit mq450:text-lgi mq825:text-7xl">
+            <span>{textSecondary}</span>
+            <span class="text-secondary">{description}</span>
+            <span>"</span>
+          </h1>
+        </div>
+        <div class="w-72 rounded-lg bg-secondary flex flex-row items-start justify-center py-[18.5px] px-5 box-border gap-[8px] text-center text-base text-white">
+          <img
+            class="h-6 w-6 relative hidden"
+            alt=""
+            src="/vuesaxoutlineshoppingcart.svg"
+          />
+          <div class="relative inline-block min-w-[100px]">
+            Explore More
+          </div>
+          <img
+            class="h-6 w-6 relative hidden"
+            alt=""
+            src="/vuesaxoutlineshoppingcart.svg"
+          />
+        </div>
+      </div>
+    </div>
+    <img
+      class="h-[443px] flex-1 relative max-w-full overflow-hidden object-cover min-w-[473px] mq825:min-w-full"
+      loading="lazy"
+      alt=""
+      src="/frame-26086938@2x.png"
+    />
+  </div>
+</div>
