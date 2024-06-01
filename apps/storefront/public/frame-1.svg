@@ -1,0 +1,31 @@
+<svg width="130" height="12" viewBox="0 0 130 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4246_48539)">
+<g clip-path="url(#clip1_4246_48539)">
+<circle opacity="0.3" cx="88" cy="2" r="2" fill="white"/>
+<circle opacity="0.3" cx="96" cy="2" r="2" fill="white"/>
+<circle opacity="0.3" cx="104" cy="2" r="2" fill="white"/>
+<circle opacity="0.3" cx="112" cy="2" r="2" fill="white"/>
+<circle opacity="0.6" cx="120" cy="2" r="2" fill="white"/>
+<circle opacity="0.6" cx="128" cy="2" r="2" fill="white"/>
+</g>
+<g clip-path="url(#clip2_4246_48539)">
+<circle opacity="0.3" cx="88" cy="10" r="2" fill="white"/>
+<circle opacity="0.3" cx="96" cy="10" r="2" fill="white"/>
+<circle opacity="0.3" cx="104" cy="10" r="2" fill="white"/>
+<circle opacity="0.3" cx="112" cy="10" r="2" fill="white"/>
+<circle opacity="0.6" cx="120" cy="10" r="2" fill="white"/>
+<circle opacity="0.6" cx="128" cy="10" r="2" fill="white"/>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_4246_48539">
+<rect width="130" height="12" fill="white"/>
+</clipPath>
+<clipPath id="clip1_4246_48539">
+<rect width="44" height="4" fill="white" transform="translate(86)"/>
+</clipPath>
+<clipPath id="clip2_4246_48539">
+<rect width="44" height="4" fill="white" transform="translate(86 8)"/>
+</clipPath>
+</defs>
+</svg>

@@ -5,6 +5,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "start": "turbo run start",
     "start:dev": "docker-compose up --watch",
     "init:dev": "pnpm link-configs && ./scripts/init.dev.sh",
     "create-service": "./scripts/add_service.sh",
@@ -12,7 +13,7 @@
     "link-configs": "node packages/link-config/link-configs.js"
   },
   "devDependencies": {
-    "eslint": "^9.2.0",
+    "eslint": "^9.4.0",
     "tsconfig": "workspace:*",
     "turbo": "^1.13.3"
   },
